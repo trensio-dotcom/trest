@@ -1,0 +1,493 @@
+<!-- ================= UPDATES SECTION ================= -->
+<section id="updates" class="updates-section">
+
+  <div class="updates-header reveal">
+    <div class="section-label">Updates</div>
+    <h2 class="section-title">Latest Announcements</h2>
+    <p class="section-text">
+      Stay informed about new courses, trainings, events and opportunities from Trensio.
+    </p>
+  </div>
+
+  <!-- CONGRATULATIONS MESSAGE -->
+  <!--
+  Congratulations to the following 12 students who have been selected
+  for the upcoming Trensio Training Activity.
+  -->
+
+  <!-- UPCOMING TRAINING ACTIVITY -->
+  <div class="training-activity reveal">
+
+    <div class="training-top">
+      <div class="training-label">
+        <i class="fa-solid fa-bullhorn"></i>
+        Upcoming Training Activity
+      </div>
+
+      <div class="training-due">
+        <i class="fa-regular fa-calendar-check"></i>
+        Due Date: <span>22 November</span>
+      </div>
+    </div>
+
+    <h3 class="training-title">
+      Trensio Training Activity
+    </h3>
+
+    <p class="training-text">
+      Trensio is preparing an upcoming training activity for selected students.
+      The training will focus on practical creative and digital skills, including graphic designing,
+      web designing, web development, artificial intelligence, MS Office and other useful skills.
+    </p>
+
+    <div class="countdown">
+      <div class="countdown-box">
+        <span id="countdownDays">0</span>
+        <small>Days</small>
+      </div>
+
+      <div class="countdown-box">
+        <span id="countdownHours">0</span>
+        <small>Hours</small>
+      </div>
+
+      <div class="countdown-box">
+        <span id="countdownMinutes">0</span>
+        <small>Minutes</small>
+      </div>
+
+      <div class="countdown-box">
+        <span id="countdownSeconds">0</span>
+        <small>Seconds</small>
+      </div>
+    </div>
+
+    <div class="selected-students">
+
+      <div class="students-header">
+        <h4>
+          <i class="fa-solid fa-user-check"></i>
+          Selected Students
+        </h4>
+
+        <div class="student-search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input
+            type="text"
+            id="studentSearchInput"
+            placeholder="Search student name..."
+          >
+        </div>
+      </div>
+
+      <div class="students-grid" id="studentsGrid"></div>
+
+      <div class="no-student-message" id="noStudentMessage">
+        No student found.
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- OTHER UPDATES -->
+  <div class="updates-grid">
+
+    <div class="update-card reveal">
+      <div class="date">NEW COURSE</div>
+      <h3>Web Development Training</h3>
+      <p>
+        Learn how to build modern, responsive websites from scratch using HTML, CSS and JavaScript.
+      </p>
+      <a href="#">Read More <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+
+    <div class="update-card reveal">
+      <div class="date">ANNOUNCEMENT</div>
+      <h3>Graphic Design Workshop</h3>
+      <p>
+        Join our upcoming practical workshop on branding, posters, social media designs and creative visuals.
+      </p>
+      <a href="#">Read More <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+
+    <div class="update-card reveal">
+      <div class="date">OPPORTUNITY</div>
+      <h3>AI & Digital Skills Program</h3>
+      <p>
+        Discover how artificial intelligence and digital tools can boost creativity, productivity and career growth.
+      </p>
+      <a href="#">Read More <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ================= UPDATES CSS ================= -->
+<style>
+.updates-section{
+  padding:100px 7%;
+  background:var(--white);
+}
+
+.updates-header{
+  text-align:center;
+  max-width:680px;
+  margin:0 auto 50px;
+}
+
+.training-activity{
+  background:var(--white);
+  border:1px solid #e5e5e5;
+  border-left:5px solid var(--gold);
+  padding:40px;
+  max-width:1000px;
+  margin:0 auto 60px;
+  box-shadow:0 10px 30px rgba(0,0,0,.05);
+}
+
+.training-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  flex-wrap:wrap;
+  margin-bottom:24px;
+}
+
+.training-label{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  background:var(--black);
+  color:var(--white);
+  font-size:.75rem;
+  font-weight:700;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  padding:10px 18px;
+}
+
+.training-label i{
+  color:var(--gold);
+}
+
+.training-due{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  background:var(--gold);
+  color:var(--white);
+  font-weight:600;
+  font-size:.88rem;
+  padding:11px 18px;
+}
+
+.training-due span{
+  font-weight:800;
+}
+
+.training-title{
+  font-size:clamp(1.7rem,4vw,2.5rem);
+  font-weight:700;
+  color:var(--black);
+  margin-bottom:16px;
+  line-height:1.2;
+}
+
+.training-text{
+  color:#555;
+  font-size:.95rem;
+  font-weight:300;
+  line-height:1.8;
+  max-width:760px;
+  margin-bottom:30px;
+}
+
+.countdown{
+  display:flex;
+  gap:14px;
+  flex-wrap:wrap;
+  margin-bottom:40px;
+}
+
+.countdown-box{
+  background:var(--grey);
+  border:1px solid #e5e5e5;
+  padding:18px 22px;
+  min-width:100px;
+  text-align:center;
+  transition:.3s;
+}
+
+.countdown-box:hover{
+  border-color:var(--gold);
+  transform:translateY(-4px);
+}
+
+.countdown-box span{
+  display:block;
+  font-size:1.7rem;
+  font-weight:700;
+  color:var(--black);
+}
+
+.countdown-box small{
+  color:#777;
+  font-size:.7rem;
+  letter-spacing:1px;
+  text-transform:uppercase;
+}
+
+.selected-students{
+  background:var(--grey);
+  padding:28px;
+}
+
+.students-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  flex-wrap:wrap;
+  margin-bottom:22px;
+}
+
+.students-header h4{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:1.05rem;
+  font-weight:700;
+  color:var(--black);
+}
+
+.students-header h4 i{
+  color:var(--gold);
+}
+
+.student-search{
+  position:relative;
+  min-width:250px;
+}
+
+.student-search i{
+  position:absolute;
+  right:14px;
+  top:50%;
+  transform:translateY(-50%);
+  color:#888;
+  font-size:.85rem;
+}
+
+.student-search input{
+  width:100%;
+  padding:12px 40px 12px 14px;
+  border:1px solid #ddd;
+  background:var(--white);
+  color:var(--black);
+  font-family:inherit;
+  font-size:.88rem;
+  outline:none;
+  transition:.3s;
+}
+
+.student-search input::placeholder{
+  color:#999;
+}
+
+.student-search input:focus{
+  border-color:var(--black);
+}
+
+.students-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:14px;
+}
+
+.student-card{
+  background:var(--white);
+  border:1px solid #e5e5e5;
+  padding:16px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  transition:.3s;
+  animation:studentFadeIn .5s ease both;
+}
+
+.student-card:hover{
+  border-color:var(--gold);
+  transform:translateY(-4px);
+  box-shadow:0 10px 25px rgba(0,0,0,.07);
+}
+
+.student-info h5{
+  font-size:.92rem;
+  font-weight:600;
+  color:var(--black);
+  margin-bottom:6px;
+}
+
+.gender-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-size:.7rem;
+  font-weight:700;
+  padding:5px 10px;
+}
+
+.gender-male{
+  background:rgba(37,133,189,.12);
+  color:#2585BD;
+}
+
+.gender-female{
+  background:rgba(123,203,31,.15);
+  color:#5d8f16;
+}
+
+.no-student-message{
+  display:none;
+  text-align:center;
+  color:#777;
+  font-size:.88rem;
+  padding:20px;
+}
+
+.no-student-message.show{
+  display:block;
+}
+
+@keyframes studentFadeIn{
+  from{
+    opacity:0;
+    transform:translateY(15px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+@media(max-width:768px){
+  .updates-section{
+    padding:70px 7%;
+  }
+
+  .training-activity{
+    padding:28px 22px;
+  }
+
+  .training-top{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .students-header{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .student-search{
+    width:100%;
+  }
+}
+</style>
+
+<!-- ================= UPDATES JAVASCRIPT ================= -->
+<script>
+const selectedStudents = [
+  { name:"Chifundo Banda", gender:"Female" },
+  { name:"Blessings Phiri", gender:"Male" },
+  { name:"Memory Chirwa", gender:"Female" },
+  { name:"Yamikani Mwale", gender:"Male" },
+  { name:"Tapiwa Gondwe", gender:"Female" },
+  { name:"Chikondi Zulu", gender:"Male" },
+  { name:"Fatsani Nkhoma", gender:"Female" },
+  { name:"Madalitso Banda", gender:"Male" },
+  { name:"Thandiwe Mvula", gender:"Female" },
+  { name:"Kondwani Chirwa", gender:"Male" },
+  { name:"Chisomo Kachale", gender:"Female" },
+  { name:"Emmanuel Phiri", gender:"Male" }
+];
+
+const studentsGrid = document.getElementById("studentsGrid");
+const studentSearchInput = document.getElementById("studentSearchInput");
+const noStudentMessage = document.getElementById("noStudentMessage");
+
+function renderStudents(students){
+  studentsGrid.innerHTML = "";
+
+  if(students.length === 0){
+    noStudentMessage.classList.add("show");
+    return;
+  }
+
+  noStudentMessage.classList.remove("show");
+
+  students.forEach((student, index) => {
+    const genderClass = student.gender === "Male" ? "gender-male" : "gender-female";
+    const genderIcon = student.gender === "Male" ? "fa-person" : "fa-person-dress";
+
+    const studentCard = document.createElement("div");
+    studentCard.className = "student-card";
+    studentCard.style.animationDelay = `${index * 0.05}s`;
+
+    studentCard.innerHTML = `
+      <div class="student-info">
+        <h5>${index + 1}. ${student.name}</h5>
+        <span class="gender-badge ${genderClass}">
+          <i class="fa-solid ${genderIcon}"></i>
+          ${student.gender}
+        </span>
+      </div>
+    `;
+
+    studentsGrid.appendChild(studentCard);
+  });
+}
+
+renderStudents(selectedStudents);
+
+studentSearchInput.addEventListener("input", () => {
+  const searchValue = studentSearchInput.value.toLowerCase().trim();
+
+  const filteredStudents = selectedStudents.filter(student => {
+    return student.name.toLowerCase().includes(searchValue);
+  });
+
+  renderStudents(filteredStudents);
+});
+
+function updateTrainingCountdown(){
+  const dueDate = new Date("November 22, 2026 00:00:00");
+  const currentTime = new Date();
+  const difference = dueDate - currentTime;
+
+  if(difference <= 0){
+    document.getElementById("countdownDays").textContent = "0";
+    document.getElementById("countdownHours").textContent = "0";
+    document.getElementById("countdownMinutes").textContent = "0";
+    document.getElementById("countdownSeconds").textContent = "0";
+    return;
+  }
+
+  const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+  document.getElementById("countdownDays").textContent = days;
+  document.getElementById("countdownHours").textContent = hours;
+  document.getElementById("countdownMinutes").textContent = minutes;
+  document.getElementById("countdownSeconds").textContent = seconds;
+}
+
+updateTrainingCountdown();
+setInterval(updateTrainingCountdown, 1000);
+</script>

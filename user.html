@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Trensio — Student Dashboard</title>
+<link rel="icon" type="image/jpeg" href="fav.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root{
+  --black:#0b0b0b;
+  --gold:#e0a831;
+  --white:#fff;
+  --grey:#f4f4f4;
+  --red:#e53e3e;
+  --green:#2f855a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Poppins',sans-serif;background:var(--grey);color:var(--black);display:flex;min-height:100vh}
+
+.sidebar{width:270px;background:var(--black);color:var(--white);height:100vh;position:fixed;top:0;left:0;display:flex;flex-direction:column;padding:28px 20px;z-index:100;transition:transform .35s cubic-bezier(.77,0,.18,1)}
+.profile-circle{width:92px;height:92px;border-radius:50%;background:var(--grey);margin:0 auto 10px;overflow:hidden;display:flex;align-items:center;justify-content:center;border:3px solid var(--gold)}
+.profile-circle i{font-size:2rem;color:#999}
+.profile-name{text-align:center;font-weight:600;font-size:.95rem;margin-bottom:4px}
+.profile-id{text-align:center;font-size:.75rem;color:#aaa;margin-bottom:28px}
+.sidebar-menu{list-style:none;flex:1}
+.sidebar-menu li{margin-bottom:6px}
+.sidebar-link{display:flex;align-items:center;gap:14px;color:#ccc;text-decoration:none;padding:13px 14px;font-size:.93rem;font-weight:500;transition:.25s;position:relative;border-left:3px solid transparent}
+.sidebar-link i{width:20px;text-align:center}
+.sidebar-link:hover,.sidebar-link.active{background:rgba(255,255,255,.08);color:var(--white)}
+.sidebar-link.active{border-left-color:var(--gold)}
+.notification-badge{position:absolute;right:14px;background:var(--red);color:var(--white);font-size:.7rem;font-weight:700;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;line-height:1;padding:0}
+.logout-link{display:flex;align-items:center;gap:14px;color:#ccc;text-decoration:none;padding:13px 14px;font-size:.93rem;font-weight:500;border-top:1px solid rgba(255,255,255,.15);margin-top:16px;transition:.25s}
+.logout-link:hover{color:var(--gold)}
+
+.main{margin-left:270px;flex:1;min-width:0}
+.topbar{height:72px;background:var(--white);display:flex;align-items:center;justify-content:space-between;padding:0 28px;box-shadow:0 1px 0 rgba(0,0,0,.06);position:sticky;top:0;z-index:90}
+.topbar-title{font-size:1.15rem;font-weight:700}
+.topbar-right{display:flex;align-items:center;gap:18px}
+.notification-icon{position:relative;color:var(--black);font-size:1.15rem;cursor:pointer}
+.notification-icon .badge{position:absolute;top:-6px;right:-8px;background:var(--red);color:var(--white);font-size:.65rem;font-weight:700;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;line-height:1;padding:0}
+.content{padding:28px}
+.page{display:none;animation:fadeIn .35s ease}
+.page.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.page-title{font-size:1.5rem;font-weight:700;margin-bottom:6px}
+.page-subtitle{color:#666;font-size:.9rem;font-weight:300;margin-bottom:26px}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-bottom:28px}
+.card{background:var(--white);padding:22px;box-shadow:0 8px 24px rgba(0,0,0,.06)}
+.card-icon{width:46px;height:46px;display:flex;align-items:center;justify-content:center;background:rgba(224,168,49,.12);color:var(--gold);font-size:1.1rem;margin-bottom:14px}
+.card h3{font-size:.85rem;color:#666;font-weight:600;margin-bottom:6px}
+.card p{font-size:1.4rem;font-weight:700}
+
+.section-box{background:var(--white);padding:24px;box-shadow:0 8px 24px rgba(0,0,0,.06);margin-bottom:22px}
+.section-box h2{font-size:1.05rem;margin-bottom:16px}
+.item{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px;border:1px solid #eee;margin-bottom:12px;transition:.25s}
+.item:hover{border-color:var(--gold)}
+.item-info h4{font-size:.95rem;margin-bottom:4px}
+.item-info p{font-size:.82rem;color:#666;font-weight:300}
+.item-action{display:flex;gap:10px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;font-size:.82rem;font-weight:600;text-decoration:none;border:none;cursor:pointer;transition:.25s}
+.btn-dark{background:var(--black);color:var(--white)}
+.btn-dark:hover{background:var(--gold);color:var(--black)}
+.btn-gold{background:var(--gold);color:var(--white)}
+.btn-gold:hover{background:var(--black);color:var(--white)}
+.badge{display:inline-block;padding:5px 12px;font-size:.72rem;font-weight:700}
+.badge-green{background:rgba(47,133,90,.12);color:var(--green)}
+.badge-red{background:rgba(229,62,62,.1);color:var(--red)}
+.badge-gold{background:rgba(224,168,49,.15);color:#a97b12}
+
+.form-group{margin-bottom:16px}
+label{display:block;font-size:.82rem;font-weight:600;color:#333;margin-bottom:7px}
+input,textarea{width:100%;padding:12px 14px;border:1px solid #ddd;font-family:inherit;font-size:.9rem;outline:none;transition:.25s}
+input:focus,textarea:focus{border-color:var(--black)}
+textarea{min-height:120px;resize:vertical}
+
+.notification-item{display:flex;gap:14px;padding:16px;border-bottom:1px solid #eee}
+.notification-item:last-child{border-bottom:none}
+.notification-icon-box{width:38px;height:38px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:rgba(224,168,49,.12);color:var(--gold)}
+.notification-item h4{font-size:.9rem;margin-bottom:4px}
+.notification-item p{font-size:.82rem;color:#666;font-weight:300}
+.notification-time{font-size:.72rem;color:#999;margin-top:4px}
+.empty-message{text-align:center;color:#777;font-size:.88rem;padding:20px}
+
+.menu-toggle{display:none;position:fixed;top:16px;left:16px;z-index:200;background:var(--black);color:var(--white);border:none;width:42px;height:42px;font-size:1.05rem;cursor:pointer}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:95;opacity:0;visibility:hidden;transition:.3s}
+.overlay.show{opacity:1;visibility:visible}
+
+@media(max-width:900px){
+  .sidebar{transform:translateX(-100%)}
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-left:0}
+  .menu-toggle{display:flex;align-items:center;justify-content:center}
+  .topbar{padding-left:70px}
+  .content{padding:20px}
+}
+</style>
+</head>
+<body>
+
+<button class="menu-toggle" id="menuToggle"><i class="fa-solid fa-bars"></i></button>
+<div class="overlay" id="overlay"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="profile-circle"><i class="fa-regular fa-circle-user"></i></div>
+  <div class="profile-name" id="profileName">Student</div>
+  <div class="profile-id" id="profileId">Student ID: ---</div>
+
+  <ul class="sidebar-menu">
+    <li><a href="#" class="sidebar-link active" data-page="dashboard"><i class="fa-solid fa-chart-line"></i> Dashboard</a></li>
+    <li><a href="#" class="sidebar-link" data-page="tutorials"><i class="fa-solid fa-book-open"></i> Tutorials</a></li>
+    <li><a href="#" class="sidebar-link" data-page="assignments"><i class="fa-solid fa-file-lines"></i> Assignments</a></li>
+    <li><a href="#" class="sidebar-link" data-page="submit"><i class="fa-solid fa-paper-plane"></i> Submit</a></li>
+    <li><a href="#" class="sidebar-link" data-page="results"><i class="fa-solid fa-chart-simple"></i> Results</a></li>
+    <li>
+      <a href="#" class="sidebar-link" data-page="notifications" id="notificationsLink">
+        <i class="fa-regular fa-bell"></i>
+        Notifications
+        <span class="notification-badge" id="sidebarNotificationBadge">0</span>
+      </a>
+    </li>
+  </ul>
+
+  <a href="signform.html" class="logout-link"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+</aside>
+
+<div class="main">
+  <header class="topbar">
+    <div class="topbar-title">Student Dashboard</div>
+    <div class="topbar-right">
+      <div class="notification-icon" id="notificationIcon">
+        <i class="fa-regular fa-bell"></i>
+        <span class="badge" id="topNotificationBadge">0</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="content">
+
+    <section class="page active" id="dashboard">
+      <h1 class="page-title">Welcome back, <span id="dashboardName">Student</span></h1>
+      <p class="page-subtitle">Here is an overview of your learning progress.</p>
+
+      <div class="cards">
+        <div class="card"><div class="card-icon"><i class="fa-solid fa-book-open"></i></div><h3>Tutorials Available</h3><p id="tutorialsCount">0</p></div>
+        <div class="card"><div class="card-icon"><i class="fa-solid fa-file-lines"></i></div><h3>Assignments</h3><p id="assignmentsCount">0</p></div>
+        <div class="card"><div class="card-icon"><i class="fa-solid fa-chart-simple"></i></div><h3>Results Released</h3><p id="resultsCount">0</p></div>
+        <div class="card"><div class="card-icon"><i class="fa-regular fa-bell"></i></div><h3>Unread Notifications</h3><p id="notificationsCount">0</p></div>
+      </div>
+
+      <div class="section-box">
+        <h2>Recent Notifications</h2>
+        <div id="recentNotifications"></div>
+      </div>
+    </section>
+
+    <section class="page" id="tutorials">
+      <h1 class="page-title">Tutorials</h1>
+      <p class="page-subtitle">Access video lessons, audio lessons, books, PDFs and other downloadable materials.</p>
+      <div class="section-box"><h2>Available Tutorials</h2><div id="tutorialsList"></div></div>
+    </section>
+
+    <section class="page" id="assignments">
+      <h1 class="page-title">Assignments</h1>
+      <p class="page-subtitle">View assigned work and submit your completed assignments.</p>
+      <div class="section-box"><h2>Available Assignments</h2><div id="assignmentsList"></div></div>
+    </section>
+
+    <section class="page" id="submit">
+      <h1 class="page-title">Submit Assignment</h1>
+      <p class="page-subtitle">Upload or share your completed assignment with your tutor.</p>
+
+      <div class="section-box">
+        <h2>Assignment Submission</h2>
+        <form id="submissionForm">
+          <div class="form-group">
+            <label for="assignmentTitle">Assignment Title</label>
+            <input type="text" id="assignmentTitle" placeholder="Enter assignment title" required>
+          </div>
+          <div class="form-group">
+            <label for="assignmentLink">Assignment Link</label>
+            <input type="url" id="assignmentLink" placeholder="Paste Google Drive, PDF or other link" required>
+          </div>
+          <div class="form-group">
+            <label for="assignmentNotes">Notes</label>
+            <textarea id="assignmentNotes" placeholder="Write any notes about your submission"></textarea>
+          </div>
+          <button type="submit" class="btn btn-dark"><i class="fa-solid fa-paper-plane"></i> Submit Assignment</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="page" id="results">
+      <h1 class="page-title">Results</h1>
+      <p class="page-subtitle">View your results for submitted assignments.</p>
+      <div class="section-box"><h2>Assignment Results</h2><div id="resultsList"></div></div>
+    </section>
+
+    <section class="page" id="notifications">
+      <h1 class="page-title">Notifications</h1>
+      <p class="page-subtitle">Stay updated with new tutorials, assignments, results and important announcements.</p>
+      <div class="section-box"><h2>All Notifications</h2><div id="notificationsList"></div></div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxdFAYC6fKEpoytLfQyIf0CuTucU4wzblOriobXFYKiBWQDNC8jYGPJ6sAlYel8pcE/exec";
+
+const user = JSON.parse(localStorage.getItem('trensioUser') || '{}');
+
+if(!user.email){
+  window.location.href = 'auth.html';
+}
+
+const sidebarLinks = document.querySelectorAll('.sidebar-link[data-page]');
+const pages = document.querySelectorAll('.page');
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('overlay');
+const menuToggle = document.getElementById('menuToggle');
+
+function showPage(pageId){
+  pages.forEach(page => page.classList.remove('active'));
+  document.getElementById(pageId).classList.add('active');
+
+  sidebarLinks.forEach(link => {
+    link.classList.toggle('active', link.getAttribute('data-page') === pageId);
+  });
+
+  sidebar.classList.remove('open');
+  overlay.classList.remove('show');
+}
+
+sidebarLinks.forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    showPage(link.getAttribute('data-page'));
+  });
+});
+
+menuToggle.addEventListener('click', () => {
+  sidebar.classList.add('open');
+  overlay.classList.add('show');
+});
+
+overlay.addEventListener('click', () => {
+  sidebar.classList.remove('open');
+  overlay.classList.remove('show');
+});
+
+function formatDate(dateValue){
+  const date = new Date(dateValue);
+  return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+}
+
+function updateNotificationBadges(count){
+  const displayCount = count > 9 ? "9+" : count;
+
+  document.getElementById('topNotificationBadge').textContent = displayCount;
+  document.getElementById('sidebarNotificationBadge').textContent = displayCount;
+  document.getElementById('notificationsCount').textContent = count;
+}
+
+function createNotificationHTML(notification){
+  return `
+    <div class="notification-item">
+      <div class="notification-icon-box"><i class="fa-regular fa-bell"></i></div>
+      <div>
+        <h4>${notification.title}</h4>
+        <p>${notification.message}</p>
+        <div class="notification-time">${formatDate(notification.date)}</div>
+      </div>
+    </div>
+  `;
+}
+
+function updateNotifications(notifications){
+  const notificationsList = document.getElementById('notificationsList');
+  const recentNotifications = document.getElementById('recentNotifications');
+
+  notificationsList.innerHTML = '';
+  recentNotifications.innerHTML = '';
+
+  if(notifications.length === 0){
+    notificationsList.innerHTML = '<div class="empty-message">No notifications yet.</div>';
+    recentNotifications.innerHTML = '<div class="empty-message">No recent notifications.</div>';
+    return;
+  }
+
+  notifications.forEach((notification, index) => {
+    notificationsList.innerHTML += createNotificationHTML(notification);
+
+    if(index < 3){
+      recentNotifications.innerHTML += createNotificationHTML(notification);
+    }
+  });
+}
+
+function updateTutorials(tutorials){
+  const tutorialsList = document.getElementById('tutorialsList');
+  tutorialsList.innerHTML = '';
+
+  document.getElementById('tutorialsCount').textContent = tutorials.length;
+
+  if(tutorials.length === 0){
+    tutorialsList.innerHTML = '<div class="empty-message">No tutorials available yet.</div>';
+    return;
+  }
+
+  tutorials.forEach(tutorial => {
+    const icon = tutorial.type === 'Video' ? 'fa-play' :
+                 tutorial.type === 'Audio' ? 'fa-headphones' : 'fa-download';
+
+    const actionText = tutorial.type === 'Video' ? 'Watch' :
+                       tutorial.type === 'Audio' ? 'Listen' : 'Download';
+
+    tutorialsList.innerHTML += `
+      <div class="item">
+        <div class="item-info">
+          <h4>${tutorial.title}</h4>
+          <p>${tutorial.type} • ${tutorial.description || 'Trensio learning material'}</p>
+        </div>
+        <div class="item-action">
+          <a href="${tutorial.link}" target="_blank" class="btn btn-dark">
+            <i class="fa-solid ${icon}"></i>
+            ${actionText}
+          </a>
+        </div>
+      </div>
+    `;
+  });
+}
+
+function updateAssignments(assignments){
+  const assignmentsList = document.getElementById('assignmentsList');
+  assignmentsList.innerHTML = '';
+
+  document.getElementById('assignmentsCount').textContent = assignments.length;
+
+  if(assignments.length === 0){
+    assignmentsList.innerHTML = '<div class="empty-message">No assignments available yet.</div>';
+    return;
+  }
+
+  assignments.forEach(assignment => {
+    assignmentsList.innerHTML += `
+      <div class="item">
+        <div class="item-info">
+          <h4>${assignment.title}</h4>
+          <p>Due date: ${assignment.dueDate}</p>
+        </div>
+        <div class="item-action">
+          <a href="${assignment.link}" target="_blank" class="btn btn-dark">
+            <i class="fa-solid fa-link"></i>
+            Open Assignment
+          </a>
+          <button class="btn btn-gold" onclick="goToSubmit('${assignment.title.replace(/'/g, "\\'")}')">
+            <i class="fa-solid fa-paper-plane"></i>
+            Submit
+          </button>
+        </div>
+      </div>
+    `;
+  });
+}
+
+function updateResults(results){
+  const resultsList = document.getElementById('resultsList');
+  resultsList.innerHTML = '';
+
+  document.getElementById('resultsCount').textContent = results.length;
+
+  if(results.length === 0){
+    resultsList.innerHTML = '<div class="empty-message">No results released yet.</div>';
+    return;
+  }
+
+  results.forEach(result => {
+    const badgeClass = result.status === 'Passed' ? 'badge-green' :
+                       result.status === 'Failed' ? 'badge-red' : 'badge-gold';
+
+    resultsList.innerHTML += `
+      <div class="item">
+        <div class="item-info">
+          <h4>${result.assignmentTitle}</h4>
+          <p>Released: ${formatDate(result.dateReleased)}</p>
+        </div>
+        <div class="item-action">
+          <span class="badge ${badgeClass}">${result.status}</span>
+          <span class="badge badge-gold">${result.score}%</span>
+        </div>
+      </div>
+    `;
+  });
+}
+
+async function loadStudentData(){
+  try{
+    const response = await fetch(GOOGLE_SCRIPT_URL, {
+      method:'POST',
+      body: JSON.stringify({
+        action:'get_student_data',
+        email:user.email,
+        studentId:user.studentId || ''
+      })
+    });
+
+    const result = await response.json();
+
+    if(result.success){
+      updateTutorials(result.tutorials || []);
+      updateAssignments(result.assignments || []);
+      updateResults(result.results || []);
+      updateNotifications(result.notifications || []);
+      updateNotificationBadges(result.unreadCount || 0);
+    }
+  } catch(error){
+    console.error('Unable to load student data.');
+  }
+}
+
+async function markNotificationsAsRead(){
+  try{
+    await fetch(GOOGLE_SCRIPT_URL, {
+      method:'POST',
+      body: JSON.stringify({
+        action:'mark_notifications_read',
+        email:user.email
+      })
+    });
+
+    updateNotificationBadges(0);
+    loadStudentData();
+  } catch(error){
+    console.error('Unable to mark notifications as read.');
+  }
+}
+
+document.getElementById('notificationIcon').addEventListener('click', async () => {
+  showPage('notifications');
+  await markNotificationsAsRead();
+});
+
+document.getElementById('notificationsLink').addEventListener('click', async (e) => {
+  e.preventDefault();
+  showPage('notifications');
+  await markNotificationsAsRead();
+});
+
+function goToSubmit(title){
+  showPage('submit');
+  document.getElementById('assignmentTitle').value = title;
+}
+
+document.getElementById('submissionForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const title = document.getElementById('assignmentTitle').value.trim();
+  const link = document.getElementById('assignmentLink').value.trim();
+  const notes = document.getElementById('assignmentNotes').value.trim();
+
+  if(!title || !link){
+    alert('Please enter the assignment title and link.');
+    return;
+  }
+
+  try{
+    const response = await fetch(GOOGLE_SCRIPT_URL, {
+      method:'POST',
+      body: JSON.stringify({
+        action:'submit_assignment',
+        studentId:user.studentId || '',
+        studentName:user.name || '',
+        assignmentTitle:title,
+        assignmentLink:link,
+        notes:notes
+      })
+    });
+
+    const result = await response.json();
+
+    if(result.success){
+      alert('Assignment submitted successfully.');
+      document.getElementById('submissionForm').reset();
+      loadStudentData();
+    } else {
+      alert(result.message || 'Unable to submit assignment. Please try again.');
+    }
+  } catch(error){
+    alert('Unable to submit assignment. Please check your internet connection and try again.');
+  }
+});
+
+if(user.name){
+  document.getElementById('profileName').textContent = user.name;
+  document.getElementById('dashboardName').textContent = user.name;
+}
+
+if(user.studentId){
+  document.getElementById('profileId').textContent = 'Student ID: ' + user.studentId;
+}
+
+loadStudentData();
+</script>
+
+</body>
+</html>

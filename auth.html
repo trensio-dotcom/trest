@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Trensio — Sign In / Sign Up</title>
+<link rel="icon" type="image/jpeg" href="fav.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root{
+  --black:#0b0b0b;
+  --gold:#e0a831;
+  --white:#fff;
+  --grey:#f4f4f4;
+  --red:#e53e3e;
+  --green:#2f855a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Poppins',sans-serif;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:80px 7% 30px;
+  background:url('background.jpg') center/cover no-repeat;
+  position:relative;
+}
+body::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.62);
+}
+
+.back-button{
+  position:fixed;
+  top:24px;
+  left:24px;
+  z-index:10;
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  color:var(--white);
+  text-decoration:none;
+  font-size:.9rem;
+  font-weight:500;
+  padding:10px 18px;
+  background:rgba(255,255,255,.12);
+  transition:.3s;
+}
+.back-button:hover{
+  background:var(--gold);
+  color:var(--black);
+}
+.back-button i{
+  font-size:.85rem;
+}
+
+.auth-card{
+  position:relative;
+  z-index:2;
+  background:var(--white);
+  width:100%;
+  max-width:440px;
+  padding:38px 32px;
+  box-shadow:0 25px 60px rgba(0,0,0,.25);
+}
+.auth-logo{
+  display:flex;
+  justify-content:center;
+  margin-bottom:22px;
+}
+.auth-logo img{
+  height:52px;
+}
+.auth-title{
+  text-align:center;
+  font-size:1.45rem;
+  font-weight:700;
+  color:var(--black);
+  margin-bottom:6px;
+}
+.auth-subtitle{
+  text-align:center;
+  color:#666;
+  font-size:.88rem;
+  font-weight:300;
+  margin-bottom:26px;
+}
+.tabs{
+  display:flex;
+  align-items:stretch;
+  background:var(--grey);
+  padding:5px;
+  margin-bottom:26px;
+}
+.tab{
+  flex:1;
+  height:46px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:none;
+  background:transparent;
+  font-family:inherit;
+  font-weight:600;
+  font-size:.9rem;
+  color:#666;
+  cursor:pointer;
+  transition:.3s;
+}
+.tab.active{
+  background:var(--black);
+  color:var(--white);
+}
+.form{
+  display:none;
+  animation:fadeIn .35s ease;
+}
+.form.active{
+  display:block;
+}
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.input-group{
+  margin-bottom:16px;
+}
+label{
+  display:block;
+  font-size:.82rem;
+  font-weight:600;
+  color:#333;
+  margin-bottom:7px;
+}
+.input-box{
+  position:relative;
+}
+.input-box i{
+  position:absolute;
+  right:14px;
+  top:50%;
+  transform:translateY(-50%);
+  color:#999;
+  font-size:.9rem;
+  cursor:pointer;
+}
+input{
+  width:100%;
+  padding:13px 42px 13px 14px;
+  border:1px solid #ddd;
+  font-family:inherit;
+  font-size:.92rem;
+  outline:none;
+  transition:.25s;
+}
+input:focus{
+  border-color:var(--black);
+}
+input.error{
+  border-color:var(--red);
+}
+.error-text{
+  color:var(--red);
+  font-size:.75rem;
+  margin-top:5px;
+  display:none;
+}
+.error-text.show{
+  display:block;
+}
+.password-note{
+  font-size:.72rem;
+  color:#777;
+  margin-top:6px;
+  line-height:1.5;
+}
+.btn-main{
+  width:100%;
+  background:var(--black);
+  color:var(--white);
+  border:none;
+  padding:14px;
+  font-family:inherit;
+  font-weight:600;
+  font-size:.95rem;
+  cursor:pointer;
+  margin-top:8px;
+  transition:.3s;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+}
+.btn-main:hover{
+  background:var(--gold);
+  color:var(--black);
+}
+.btn-main:disabled{
+  opacity:.6;
+  cursor:not-allowed;
+}
+.forgot-link{
+  display:block;
+  text-align:center;
+  margin-top:16px;
+  color:#555;
+  font-size:.83rem;
+  text-decoration:none;
+  transition:.3s;
+}
+.forgot-link:hover{
+  color:var(--gold);
+}
+.back-link{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  color:#555;
+  font-size:.83rem;
+  text-decoration:none;
+  margin-bottom:20px;
+  transition:.3s;
+}
+.back-link:hover{
+  color:var(--gold);
+}
+.message{
+  display:none;
+  padding:12px 14px;
+  font-size:.82rem;
+  margin-bottom:18px;
+  line-height:1.5;
+}
+.message.success{
+  display:block;
+  background:rgba(47,133,90,.1);
+  color:var(--green);
+  border-left:3px solid var(--green);
+}
+.message.error{
+  display:block;
+  background:rgba(229,62,62,.08);
+  color:var(--red);
+  border-left:3px solid var(--red);
+}
+.hidden{
+  display:none !important;
+}
+@media(max-width:480px){
+  body{padding:80px 5% 20px}
+  .auth-card{padding:30px 22px}
+  .back-button{top:16px;left:16px;padding:9px 14px;font-size:.82rem}
+}
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back-button">
+  <i class="fa-solid fa-arrow-left"></i>
+  Back
+</a>
+
+<div class="auth-card">
+
+  <div class="auth-logo">
+    <img src="trensio.png" alt="Trensio">
+  </div>
+
+  <div id="authTabs">
+    <div class="tabs">
+      <button class="tab active" id="signInTab">Sign In</button>
+      <button class="tab" id="signUpTab">Sign Up</button>
+    </div>
+  </div>
+
+  <div class="message" id="messageBox"></div>
+
+  <!-- SIGN IN -->
+  <form class="form active" id="signInForm" novalidate>
+    <div class="input-group">
+      <label for="loginEmail">Email Address</label>
+      <div class="input-box">
+        <input type="email" id="loginEmail" placeholder="Enter your email" required>
+        <i class="fa-regular fa-envelope"></i>
+      </div>
+      <div class="error-text" id="loginEmailError">Please enter a valid email address.</div>
+    </div>
+
+    <div class="input-group">
+      <label for="loginPassword">Password</label>
+      <div class="input-box">
+        <input type="password" id="loginPassword" placeholder="Enter your password" required>
+        <i class="fa-regular fa-eye" id="loginPasswordToggle"></i>
+      </div>
+      <div class="error-text" id="loginPasswordError">Please enter your password.</div>
+    </div>
+
+    <button type="submit" class="btn-main" id="signInBtn">
+      <span>Sign In</span>
+      <i class="fa-solid fa-arrow-right-to-bracket"></i>
+    </button>
+
+    <a href="#" class="forgot-link" id="forgotPasswordLink">Forgot Password?</a>
+  </form>
+
+  <!-- SIGN UP -->
+  <form class="form" id="signUpForm" novalidate>
+    <div class="input-group">
+      <label for="signupName">Full Name</label>
+      <div class="input-box">
+        <input type="text" id="signupName" placeholder="Enter your full name" required>
+        <i class="fa-regular fa-user"></i>
+      </div>
+      <div class="error-text" id="signupNameError">Please enter your full name.</div>
+    </div>
+
+    <div class="input-group">
+      <label for="signupEmail">Email Address</label>
+      <div class="input-box">
+        <input type="email" id="signupEmail" placeholder="Enter your email" required>
+        <i class="fa-regular fa-envelope"></i>
+      </div>
+      <div class="error-text" id="signupEmailError">Please enter a valid email address.</div>
+    </div>
+
+    <div class="input-group">
+      <label for="signupPassword">Password</label>
+      <div class="input-box">
+        <input type="password" id="signupPassword" placeholder="Create a strong password" required>
+        <i class="fa-regular fa-eye" id="signupPasswordToggle"></i>
+      </div>
+      <div class="error-text" id="signupPasswordError">
+        Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character.
+      </div>
+      <div class="password-note">
+        Use at least 8 characters with uppercase, lowercase, numbers and symbols.
+      </div>
+    </div>
+
+    <div class="input-group">
+      <label for="signupConfirmPassword">Confirm Password</label>
+      <div class="input-box">
+        <input type="password" id="signupConfirmPassword" placeholder="Confirm your password" required>
+        <i class="fa-regular fa-eye" id="signupConfirmPasswordToggle"></i>
+      </div>
+      <div class="error-text" id="signupConfirmPasswordError">Passwords do not match.</div>
+    </div>
+
+    <button type="submit" class="btn-main" id="signUpBtn">
+      <span>Create Account</span>
+      <i class="fa-solid fa-user-plus"></i>
+    </button>
+  </form>
+
+  <!-- FORGOT PASSWORD: EMAIL -->
+  <form class="form" id="forgotEmailForm" novalidate>
+    <a href="#" class="back-link" id="backToSignIn">
+      <i class="fa-solid fa-arrow-left"></i>
+      Back to Sign In
+    </a>
+
+    <div class="auth-title" style="font-size:1.2rem">Forgot Password</div>
+    <div class="auth-subtitle">Enter your registered email to receive an OTP.</div>
+
+    <div class="input-group">
+      <label for="forgotEmail">Email Address</label>
+      <div class="input-box">
+        <input type="email" id="forgotEmail" placeholder="Enter your email" required>
+        <i class="fa-regular fa-envelope"></i>
+      </div>
+      <div class="error-text" id="forgotEmailError">Please enter a valid email address.</div>
+    </div>
+
+    <button type="submit" class="btn-main" id="sendOtpBtn">
+      <span>Send OTP</span>
+      <i class="fa-regular fa-paper-plane"></i>
+    </button>
+  </form>
+
+  <!-- FORGOT PASSWORD: OTP -->
+  <form class="form" id="resetPasswordForm" novalidate>
+    <a href="#" class="back-link" id="backToSignIn2">
+      <i class="fa-solid fa-arrow-left"></i>
+      Back to Sign In
+    </a>
+
+    <div class="auth-title" style="font-size:1.2rem">Reset Password</div>
+    <div class="auth-subtitle">Enter the OTP sent to your email and create a new password.</div>
+
+    <div class="input-group">
+      <label for="otpInput">OTP Code</label>
+      <div class="input-box">
+        <input type="text" id="otpInput" placeholder="Enter 6-digit OTP" maxlength="6" required>
+        <i class="fa-solid fa-shield-halved"></i>
+      </div>
+      <div class="error-text" id="otpError">Please enter the 6-digit OTP sent to your email.</div>
+    </div>
+
+    <div class="input-group">
+      <label for="newPassword">New Password</label>
+      <div class="input-box">
+        <input type="password" id="newPassword" placeholder="Create a new password" required>
+        <i class="fa-regular fa-eye" id="newPasswordToggle"></i>
+      </div>
+      <div class="error-text" id="newPasswordError">
+        Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character.
+      </div>
+    </div>
+
+    <div class="input-group">
+      <label for="confirmNewPassword">Confirm New Password</label>
+      <div class="input-box">
+        <input type="password" id="confirmNewPassword" placeholder="Confirm new password" required>
+        <i class="fa-regular fa-eye" id="confirmNewPasswordToggle"></i>
+      </div>
+      <div class="error-text" id="confirmNewPasswordError">Passwords do not match.</div>
+    </div>
+
+    <button type="submit" class="btn-main" id="resetPasswordBtn">
+      <span>Reset Password</span>
+      <i class="fa-solid fa-key"></i>
+    </button>
+  </form>
+
+</div>
+
+<script>
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxdFAYC6fKEpoytLfQyIf0CuTucU4wzblOriobXFYKiBWQDNC8jYGPJ6sAlYel8pcE/exec";
+
+const signInTab = document.getElementById('signInTab');
+const signUpTab = document.getElementById('signUpTab');
+const signInForm = document.getElementById('signInForm');
+const signUpForm = document.getElementById('signUpForm');
+const forgotEmailForm = document.getElementById('forgotEmailForm');
+const resetPasswordForm = document.getElementById('resetPasswordForm');
+const authTabs = document.getElementById('authTabs');
+const messageBox = document.getElementById('messageBox');
+
+function showMessage(text, type){
+  messageBox.className = 'message ' + type;
+  messageBox.textContent = text;
+}
+
+function hideMessage(){
+  messageBox.className = 'message';
+  messageBox.textContent = '';
+}
+
+function showForm(form){
+  [signInForm, signUpForm, forgotEmailForm, resetPasswordForm].forEach(f => f.classList.remove('active'));
+  form.classList.add('active');
+}
+
+function showTabs(){
+  authTabs.classList.remove('hidden');
+}
+
+function hideTabs(){
+  authTabs.classList.add('hidden');
+}
+
+signInTab.addEventListener('click', () => {
+  signInTab.classList.add('active');
+  signUpTab.classList.remove('active');
+  showForm(signInForm);
+  hideMessage();
+});
+
+signUpTab.addEventListener('click', () => {
+  signUpTab.classList.add('active');
+  signInTab.classList.remove('active');
+  showForm(signUpForm);
+  hideMessage();
+});
+
+function togglePassword(inputId, iconId){
+  const input = document.getElementById(inputId);
+  const icon = document.getElementById(iconId);
+
+  icon.addEventListener('click', () => {
+    if(input.type === 'password'){
+      input.type = 'text';
+      icon.classList.remove('fa-eye');
+      icon.classList.add('fa-eye-slash');
+    } else {
+      input.type = 'password';
+      icon.classList.remove('fa-eye-slash');
+      icon.classList.add('fa-eye');
+    }
+  });
+}
+
+togglePassword('loginPassword','loginPasswordToggle');
+togglePassword('signupPassword','signupPasswordToggle');
+togglePassword('signupConfirmPassword','signupConfirmPasswordToggle');
+togglePassword('newPassword','newPasswordToggle');
+togglePassword('confirmNewPassword','confirmNewPasswordToggle');
+
+function isValidEmail(email){
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function isStrongPassword(password){
+  return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/.test(password);
+}
+
+function setError(inputId, errorId, showError){
+  const input = document.getElementById(inputId);
+  const error = document.getElementById(errorId);
+
+  if(showError){
+    input.classList.add('error');
+    error.classList.add('show');
+  } else {
+    input.classList.remove('error');
+    error.classList.remove('show');
+  }
+}
+
+signInForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  hideMessage();
+
+  const email = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value;
+
+  const emailValid = isValidEmail(email);
+  const passwordValid = password.length > 0;
+
+  setError('loginEmail','loginEmailError', !emailValid);
+  setError('loginPassword','loginPasswordError', !passwordValid);
+
+  if(!emailValid || !passwordValid) return;
+
+  const button = document.getElementById('signInBtn');
+  button.disabled = true;
+
+  try{
+    const response = await fetch(GOOGLE_SCRIPT_URL, {
+      method:'POST',
+      body: JSON.stringify({
+        action:'login',
+        email,
+        password
+      })
+    });
+
+    const result = await response.json();
+
+    if(result.success){
+      showMessage('Sign in successful. Redirecting to your dashboard...', 'success');
+      localStorage.setItem('trensioUser', JSON.stringify(result.user));
+
+      setTimeout(() => {
+        window.location.href = 'user.html';
+      }, 1500);
+    } else {
+      showMessage(result.message || 'Invalid email or password.', 'error');
+    }
+  } catch(error){
+    showMessage('Unable to sign in. Please check your internet connection and try again.', 'error');
+  }
+
+  button.disabled = false;
+});
+
+signUpForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  hideMessage();
+
+  const name = document.getElementById('signupName').value.trim();
+  const email = document.getElementById('signupEmail').value.trim();
+  const password = document.getElementById('signupPassword').value;
+  const confirmPassword = document.getElementById('signupConfirmPassword').value;
+
+  const nameValid = name.length > 0;
+  const emailValid = isValidEmail(email);
+  const passwordValid = isStrongPassword(password);
+  const confirmValid = password === confirmPassword && confirmPassword.length > 0;
+
+  setError('signupName','signupNameError', !nameValid);
+  setError('signupEmail','signupEmailError', !emailValid);
+  setError('signupPassword','signupPasswordError', !passwordValid);
+  setError('signupConfirmPassword','signupConfirmPasswordError', !confirmValid);
+
+  if(!nameValid || !emailValid || !passwordValid || !confirmValid) return;
+
+  const button = document.getElementById('signUpBtn');
+  button.disabled = true;
+
+  try{
+    const response = await fetch(GOOGLE_SCRIPT_URL, {
+      method:'POST',
+      body: JSON.stringify({
+        action:'register',
+        name,
+        email,
+        password
+      })
+    });
+
+    const result = await response.json();
+
+    if(result.success){
+      showMessage('Account created successfully. A confirmation email and your Student ID have been sent to your email.', 'success');
+      signUpForm.reset();
+
+      setTimeout(() => {
+        signInTab.click();
+      }, 2500);
+    } else {
+      showMessage(result.message || 'Unable to create your account. Please try again.', 'error');
+    }
+  } catch(error){
+    showMessage('Unable to create your account. Please check your internet connection and try again.', 'error');
+  }
+
+  button.disabled = false;
+});
+
+document.getElementById('forgotPasswordLink').addEventListener('click', (e) => {
+  e.preventDefault();
+  hideTabs();
+  showForm(forgotEmailForm);
+  hideMessage();
+});
+
+document.getElementById('backToSignIn').addEventListener('click', (e) => {
+  e.preventDefault();
+  showTabs();
+  showForm(signInForm);
+  hideMessage();
+});
+
+document.getElementById('backToSignIn2').addEventListener('click', (e) => {
+  e.preventDefault();
+  showTabs();
+  showForm(signInForm);
+  hideMessage();
+});
+
+forgotEmailForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  hideMessage();
+
+  const email = document.getElementById('forgotEmail').value.trim();
+  const emailValid = isValidEmail(email);
+
+  setError('forgotEmail','forgotEmailError', !emailValid);
+  if(!emailValid) return;
+
+  const button = document.getElementById('sendOtpBtn');
+  button.disabled = true;
+
+  try{
+    const response = await fetch(GOOGLE_SCRIPT_URL, {
+      method:'POST',
+      body: JSON.stringify({
+        action:'send_otp',
+        email
+      })
+    });
+
+    const result = await response.json();
+
+    if(result.success){
+      showMessage('An OTP has been sent to your email. Please check your inbox or spam folder.', 'success');
+      showForm(resetPasswordForm);
+    } else {
+      showMessage(result.message || 'Unable to send OTP. Please try again.', 'error');
+    }
+  } catch(error){
+    showMessage('Unable to send OTP. Please check your internet connection and try again.', 'error');
+  }
+
+  button.disabled = false;
+});
+
+resetPasswordForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  hideMessage();
+
+  const email = document.getElementById('forgotEmail').value.trim();
+  const otp = document.getElementById('otpInput').value.trim();
+  const newPassword = document.getElementById('newPassword').value;
+  const confirmPassword = document.getElementById('confirmNewPassword').value;
+
+  const otpValid = otp.length === 6;
+  const passwordValid = isStrongPassword(newPassword);
+  const confirmValid = newPassword === confirmPassword && confirmPassword.length > 0;
+
+  setError('otpInput','otpError', !otpValid);
+  setError('newPassword','newPasswordError', !passwordValid);
+  setError('confirmNewPassword','confirmNewPasswordError', !confirmValid);
+
+  if(!otpValid || !passwordValid || !confirmValid) return;
+
+  const button = document.getElementById('resetPasswordBtn');
+  button.disabled = true;
+
+  try{
+    const response = await fetch(GOOGLE_SCRIPT_URL, {
+      method:'POST',
+      body: JSON.stringify({
+        action:'reset_password',
+        email,
+        otp,
+        newPassword
+      })
+    });
+
+    const result = await response.json();
+
+    if(result.success){
+      showMessage('Your password has been reset successfully. You can now sign in.', 'success');
+      resetPasswordForm.reset();
+
+      setTimeout(() => {
+        showTabs();
+        showForm(signInForm);
+        hideMessage();
+      }, 2000);
+    } else {
+      showMessage(result.message || 'Invalid OTP or unable to reset password.', 'error');
+    }
+  } catch(error){
+    showMessage('Unable to reset your password. Please check your internet connection and try again.', 'error');
+  }
+
+  button.disabled = false;
+});
+</script>
+
+</body>
+</html>
