@@ -21,7 +21,6 @@
 html{scroll-behavior:smooth}
 body{font-family:'Poppins',sans-serif;background:var(--white);color:var(--black);overflow-x:hidden}
 
-
 /* ---------- HEADER ---------- */
 header{position:fixed;top:0;left:0;right:0;height:72px;background:var(--white);display:flex;align-items:center;justify-content:space-between;padding:0 5%;z-index:1000;box-shadow:0 1px 0 rgba(0,0,0,.08)}
 .logo img{height:42px;display:block}
@@ -150,7 +149,16 @@ footer{background:var(--black);color:var(--white);padding:80px 7% 30px}
 .footer-grid ul a{color:#aaa;text-decoration:none;font-size:.9rem;transition:.3s}
 .footer-grid ul a:hover{color:var(--gold);padding-left:6px}
 .subscribe-box{display:flex;border:1px solid #333;margin-top:18px}
-.subscribe-box input{flex:1;background:transparent;border:none;padding:14px;color:var(--white);outline:none;font-family:inherit}
+.subscribe-box input{
+  flex:1;
+  background:transparent;
+  border:none;
+  padding:14px;
+  color:var(--white);
+  outline:none;
+  font-family:inherit;
+  min-width: 0;
+  }
 .subscribe-box button{background:var(--gold);color:var(--white);border:none;padding:0 22px;cursor:pointer;transition:.3s}
 .subscribe-box button:hover{background:var(--white);color:var(--black)}
 .social-icons{display:flex;gap:14px;margin-top:6px}
@@ -168,7 +176,12 @@ footer{background:var(--black);color:var(--white);padding:80px 7% 30px}
   .hamburger{display:flex}
   .about-grid,.portfolio-grid{grid-template-columns:1fr;gap:40px}
   .about-visual{height:300px;min-height:300px}
-  .footer-grid{grid-template-columns:1fr;gap:36px;text-align:center}
+  .footer-grid{
+    grid-template-columns:1fr;
+    gap:36px;
+    text-align:center;
+    width: 100%;
+  }
   .footer-grid img{margin-left:auto;margin-right:auto}
   .footer-grid p{margin-left:auto;margin-right:auto}
   .footer-grid ul{padding:0}
