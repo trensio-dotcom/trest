@@ -21,18 +21,6 @@
 html{scroll-behavior:smooth}
 body{font-family:'Poppins',sans-serif;background:var(--white);color:var(--black);overflow-x:hidden}
 
-/* ---------- SKELETON LOADER ---------- */
-#loader{position:fixed;inset:0;background:var(--white);z-index:9999;display:flex;flex-direction:column;gap:18px;padding:90px 8% 40px;transition:opacity .5s ease,visibility .5s}
-#loader.hidden{opacity:0;visibility:hidden;pointer-events:none}
-.sk{background:linear-gradient(90deg,#eee 25%,#f7f7f7 37%,#eee 63%);background-size:400% 100%;animation:shine 1.3s infinite linear;border-radius:6px}
-@keyframes shine{0%{background-position:100% 0}100%{background-position:0 0}}
-.sk-nav{height:38px;width:180px}
-.sk-hero{height:38vh;width:100%}
-.sk-line{height:18px;width:60%}
-.sk-line.short{width:35%}
-.sk-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.sk-card{height:180px}
-@media(max-width:700px){.sk-cards{grid-template-columns:1fr}}
 
 /* ---------- HEADER ---------- */
 header{position:fixed;top:0;left:0;right:0;height:72px;background:var(--white);display:flex;align-items:center;justify-content:space-between;padding:0 5%;z-index:1000;box-shadow:0 1px 0 rgba(0,0,0,.08)}
@@ -199,18 +187,6 @@ footer{background:var(--black);color:var(--white);padding:80px 7% 30px}
 </head>
 <body>
 
-<!-- SKELETON LOADER -->
-<div id="loader">
-  <div class="sk sk-nav"></div>
-  <div class="sk sk-hero"></div>
-  <div class="sk sk-line"></div>
-  <div class="sk sk-line short"></div>
-  <div class="sk-cards">
-    <div class="sk sk-card"></div>
-    <div class="sk sk-card"></div>
-    <div class="sk sk-card"></div>
-  </div>
-</div>
 
 <!-- HEADER -->
 <header>
