@@ -1,573 +1,1828 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Trensio — We Rise by Raising Others</title>
-<link rel="icon" type="image/jpeg" href="fav.jpg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<style>
-:root{
-  --black:#0b0b0b;
-  --dark:#2f3437;
-  --gold:#e0a831;
-  --green:#00ff00;
-  --white:#fff;
-  --grey:#f4f4f4;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:'Poppins',sans-serif;background:var(--white);color:var(--black);overflow-x:hidden}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <title>Trensio — We Rise by Raising Others</title>
 
-/* ---------- HEADER ---------- */
-header{position:fixed;top:0;left:0;right:0;height:72px;background:var(--white);display:flex;align-items:center;justify-content:space-between;padding:0 5%;z-index:1000;box-shadow:0 1px 0 rgba(0,0,0,.08)}
-.logo img{height:42px;display:block}
-nav.desktop{display:flex;align-items:center;gap:26px}
-nav.desktop a{color:var(--black);text-decoration:none;font-size:.95rem;font-weight:500;position:relative;padding:6px 0}
-nav.desktop a::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--black);transition:width .3s}
-nav.desktop a:hover::after{width:100%}
-.dropdown{position:relative}
-.dropdown-toggle{display:flex;align-items:center;gap:6px;cursor:pointer}
-.dropdown-toggle i{font-size:.7rem;transition:transform .3s}
-.dropdown:hover .dropdown-toggle i{transform:rotate(180deg)}
-.dropdown-menu{position:absolute;top:135%;left:50%;transform:translate(-50%,10px);background:var(--white);min-width:280px;padding:12px 0;box-shadow:0 14px 34px rgba(0,0,0,.14);opacity:0;visibility:hidden;transition:.3s}
-.dropdown:hover .dropdown-menu,
-.dropdown:focus-within .dropdown-menu{opacity:1;visibility:visible;transform:translate(-50%,0)}
-.dropdown-menu a{display:block;padding:16px 32px;font-size:.95rem;text-align:center;border-bottom:1px solid #f0f0f0}
-.dropdown-menu a:last-child{border:none}
-.dropdown-menu a:hover{background:var(--grey)}
-.header-right{display:flex;align-items:center;gap:18px}
-.account-icon{color:var(--black);font-size:1.25rem;text-decoration:none;transition:color .3s,transform .3s}
-.account-icon:hover{color:var(--gold);transform:scale(1.1)}
-.btn-connect{background:var(--black);color:var(--white);border:none;padding:13px 30px;font-weight:600;font-size:.9rem;cursor:pointer;position:relative;overflow:hidden;letter-spacing:.5px}
-.btn-connect span{position:relative;z-index:2;transition:.3s}
-.btn-connect::before{content:none}
-.btn-connect:hover{background:var(--gold)}
-.btn-connect:hover span{color:var(--black)}
-.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px}
-.hamburger span{width:24px;height:1.6px;background:var(--black);display:block;transition:.3s}
+  <link rel="icon" type="image/jpeg" href="fav.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
 
-/* ---------- MOBILE SIDEBAR ---------- */
-.mobile-sidebar{position:fixed;top:0;right:0;height:100vh;width:90%;max-width:360px;background:var(--white);z-index:1100;transform:translateX(100%);transition:transform .4s cubic-bezier(.77,0,.18,1);padding:28px 26px;display:flex;flex-direction:column;box-shadow:-20px 0 50px rgba(0,0,0,.15)}
-.mobile-sidebar.open{transform:translateX(0)}
-.mobile-sidebar .close-btn{align-self:flex-end;background:none;border:none;font-size:1.4rem;cursor:pointer;margin-bottom:24px}
-.mobile-sidebar nav{display:flex;flex-direction:column;gap:4px}
-.mobile-sidebar nav a{color:var(--black);text-decoration:none;font-size:1.05rem;font-weight:500;padding:14px 10px;border-bottom:1px solid #f0f0f0;display:flex;justify-content:space-between;align-items:center}
-.mobile-sidebar nav a i{font-size:.75rem;color:#999}
-.mobile-sidebar .sub-links{display:none;flex-direction:column;padding-left:16px}
-.mobile-sidebar .sub-links a{font-size:.9rem;color:#555;border:none;padding:9px 10px}
-.mobile-sidebar .sub-links.open{display:flex}
-.mobile-sidebar .btn-connect{width:100%;margin-top:26px;padding:16px;font-size:1rem}
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:1050;opacity:0;visibility:hidden;transition:.3s}
-.overlay.show{opacity:1;visibility:visible}
+  <style>
+    :root {
+      --black: #0b0b0b;
+      --dark: #2f3437;
+      --gold: #e0a831;
+      --green: #00ff00;
+      --white: #fff;
+      --grey: #f4f4f4;
+    }
 
-/* ---------- HERO ---------- */
-.hero{min-height:100vh;position:relative;display:flex;align-items:center;justify-content:center;text-align:center;padding:120px 7% 80px;background:url('background.jpg') center/cover no-repeat}
-.hero::before{content:"";position:absolute;inset:0;background:rgba(0,0,0,.62)}
-.hero-content{position:relative;z-index:2;max-width:820px}
-.hero h1{color:var(--white);font-size:clamp(2.2rem,6vw,4.4rem);font-weight:700;line-height:1.15;letter-spacing:-1px}
-.hero h1 .highlight{color:var(--gold)}
-.hero p{color:rgba(255,255,255,.85);margin:22px auto 36px;max-width:620px;font-size:clamp(.95rem,2vw,1.15rem);font-weight:300;line-height:1.7}
-.hero-buttons{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
-.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 34px;font-weight:600;font-size:.95rem;text-decoration:none;border:none;cursor:pointer;position:relative;overflow:hidden;letter-spacing:.5px}
-.btn-explore{background:var(--gold);color:var(--white)}
-.btn-explore::before{content:"";position:absolute;inset:0;background:var(--white);transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.77,0,.18,1)}
-.btn-explore:hover::before{transform:scaleX(1)}
-.btn-explore span{position:relative;z-index:2;transition:color .3s}
-.btn-explore:hover span{color:var(--black)}
-.btn-about{background:var(--white);color:var(--black);transition:.3s}
-.btn-about:hover{background:var(--black);color:var(--white)}
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-/* ---------- MARQUEE ---------- */
-.marquee-strip{background:var(--black);padding:14px 0;overflow:hidden;white-space:nowrap}
-.marquee-track{display:inline-flex;gap:0;animation:scroll 28s linear infinite}
-.marquee-track span{color:var(--white);font-size:.92rem;font-weight:500;letter-spacing:1px;padding:0 24px;display:inline-flex;align-items:center;gap:24px}
-.marquee-track .star{color:var(--green);font-size:1.1rem}
-@keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 72px;
+    }
 
-/* ---------- SECTIONS ---------- */
-section{padding:100px 7%}
-.section-label{color:var(--gold);font-size:.8rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;margin-bottom:14px}
-.section-title{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;line-height:1.2;margin-bottom:20px}
-.section-text{color:#555;line-height:1.8;max-width:640px;font-weight:300}
+    body {
+      font-family: "Poppins", sans-serif;
+      background: var(--white);
+      color: var(--black);
+    }
 
-/* About */
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:stretch}
-.about-content{display:flex;flex-direction:column;justify-content:center}
-.about-cards{display:grid;gap:18px;margin-top:34px}
-.about-card{background:var(--grey);padding:24px;border-left:3px solid var(--gold);transition:transform .3s,box-shadow .3s}
-.about-card:hover{transform:translateX(8px);box-shadow:0 10px 30px rgba(0,0,0,.08)}
-.about-card h4{font-size:1rem;margin-bottom:8px;display:flex;align-items:center;gap:10px}
-.about-card h4 i{color:var(--gold)}
-.about-card p{font-size:.9rem;color:#555;line-height:1.7;font-weight:300}
-.about-visual{position:relative;width:100%;height:100%;min-height:420px;background:url('background.jpg') center/cover no-repeat;border-radius:10px;overflow:hidden}
-.about-visual::after{content:"";position:absolute;inset:0;background:transparent}
+    button,
+    input {
+      font-family: inherit;
+    }
 
-/* Portfolio */
-.portfolio-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:60px;align-items:center}
-.portfolio-images{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:150px;gap:14px}
-.p-item{position:relative;overflow:hidden;cursor:pointer;border-radius:10px}
-.p-item img{width:100%;height:100%;object-fit:cover;object-position:center;border-radius:10px;transition:transform .5s}
-.p-item:hover img{transform:scale(1.08)}
-.p-item::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,0);transition:.4s}
-.p-item:hover::after{background:rgba(0,0,0,.45)}
-.p-item .visit{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(.8);opacity:0;background:var(--white);color:var(--black);border:none;padding:10px 22px;font-weight:600;font-size:.8rem;cursor:pointer;transition:.35s;z-index:2;display:flex;align-items:center;gap:8px}
-.p-item:hover .visit{opacity:1;transform:translate(-50%,-50%) scale(1)}
-.p1{grid-column:span 2;grid-row:span 2}
-.p2{grid-column:span 2;grid-row:span 1}
-.p3{grid-column:span 2;grid-row:span 1}
-.p4{grid-column:span 2;grid-row:span 1}
-.p5{grid-column:span 2;grid-row:span 1}
-.p6{grid-column:span 4;grid-row:span 1}
+    img {
+      max-width: 100%;
+    }
 
-/* Partners */
-.partners{background:var(--dark);padding:26px 0;overflow:hidden}
-.partners .marquee-track{animation-duration:22s}
-.partners img{height:38px;opacity:.85;transition:.3s;padding:0 34px}
-.partners img:hover{opacity:1}
+    button,
+    a,
+    input {
+      -webkit-tap-highlight-color: transparent;
+    }
 
-/* Updates */
-.updates-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:40px}
-.update-card{background:var(--white);border:1px solid #ececec;padding:28px;transition:transform .3s,box-shadow .3s}
-.update-card:hover{transform:translateY(-8px);box-shadow:0 18px 40px rgba(0,0,0,.08)}
-.update-card .date{color:var(--gold);font-size:.78rem;font-weight:600;letter-spacing:1px;margin-bottom:12px}
-.update-card h3{font-size:1.1rem;margin-bottom:10px}
-.update-card p{font-size:.9rem;color:#555;line-height:1.7;font-weight:300}
-.update-card a{color:var(--black);text-decoration:none;font-size:.85rem;font-weight:600;display:inline-flex;align-items:center;gap:8px;margin-top:16px;transition:gap .3s}
-.update-card a:hover{gap:14px}
+    /* ---------- HEADER ---------- */
 
-/* Footer */
-footer{background:var(--black);color:var(--white);padding:80px 7% 30px}
-.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:50px;margin-bottom:50px}
-.footer-grid img{height:46px;margin-bottom:20px}
-.footer-grid p{color:#aaa;font-size:.9rem;line-height:1.8;font-weight:300;max-width:340px}
-.footer-grid h4{font-size:.95rem;margin-bottom:18px;letter-spacing:1px}
-.footer-grid ul{list-style:none}
-.footer-grid ul li{margin-bottom:12px}
-.footer-grid ul a{color:#aaa;text-decoration:none;font-size:.9rem;transition:.3s}
-.footer-grid ul a:hover{color:var(--gold);padding-left:6px}
-.subscribe-box{display:flex;border:1px solid #333;margin-top:18px}
-.subscribe-box input{flex:1;background:transparent;border:none;padding:14px;color:var(--white);outline:none;font-family:inherit}
-.subscribe-box button{background:var(--gold);color:var(--white);border:none;padding:0 22px;cursor:pointer;transition:.3s}
-.subscribe-box button:hover{background:var(--white);color:var(--black)}
-.social-icons{display:flex;gap:14px;margin-top:6px}
-.social-icons a{width:42px;height:42px;display:flex;align-items:center;justify-content:center;border:1px solid #333;color:#aaa;font-size:1rem;transition:.3s}
-.social-icons a:hover{background:var(--gold);color:var(--black);border-color:var(--gold);transform:translateY(-4px)}
-.footer-bottom{border-top:1px solid #222;padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;color:#777;font-size:.82rem}
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 72px;
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      z-index: 1000;
+      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
+    }
 
-  /*subscribe*/
-  .footer-newsletter,
-.footer-newsletter *,
-.footer-newsletter *::before,
-.footer-newsletter *::after {
-  box-sizing: border-box;
-}
+    .logo {
+      flex-shrink: 0;
+    }
 
-.footer-newsletter {
-  width: 100%;
-  max-width: 640px;
-  min-width: 0;
-  margin-inline: auto;
-  padding-inline: 16px;
-}
+    .logo img {
+      height: 42px;
+      width: auto;
+      display: block;
+    }
 
-.footer-description {
-  width: auto;
-  max-width: 100%;
-  margin: 0 0 24px;
-  color: #aaa;
-  font-size: 16px;
-  line-height: 1.7;
-  text-align: center;
-  white-space: normal;
-  overflow-wrap: anywhere;
-}
+    nav.desktop {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+    }
 
-.subscribe-form {
-  display: flex;
-  align-items: stretch;
-  width: 100%;
-  max-width: 100%;
-  min-width: 0;
-  margin: 0;
-  padding: 0;
-  border: 1px solid #333;
-  background: #0b0b0b;
-}
+    nav.desktop a {
+      color: var(--black);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      position: relative;
+      padding: 6px 0;
+    }
 
-.subscribe-form input {
-  flex: 1 1 0%;
-  width: 0;
-  min-width: 0;
-  margin: 0;
-  padding: 16px;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-  color: #fff;
-  font: inherit;
-  font-size: 16px;
-}
+    nav.desktop a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 2px;
+      width: 0;
+      background: var(--black);
+      transition: width 0.3s;
+    }
 
-.subscribe-form input::placeholder {
-  color: #888;
-}
+    nav.desktop a:hover::after {
+      width: 100%;
+    }
 
-.subscribe-form button {
-  display: grid;
-  place-items: center;
-  flex: 0 0 56px;
-  width: 56px;
-  min-width: 0;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  border-radius: 0;
-  background: #d6a328;
-  color: #fff;
-  cursor: pointer;
-}
+    .dropdown {
+      position: relative;
+    }
 
-.subscribe-form input:focus-visible,
-.subscribe-form button:focus-visible {
-  outline: 2px solid #fff;
-  outline-offset: -3px;
-}
+    .dropdown-toggle {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
 
-.subscribe-label {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
-  border: 0;
-}
+    .dropdown-toggle i {
+      font-size: 0.7rem;
+      transition: transform 0.3s;
+    }
 
-@media (max-width: 360px) {
-  .footer-newsletter {
-    padding-inline: 12px;
-  }
+    .dropdown:hover .dropdown-toggle i,
+    .dropdown:focus-within .dropdown-toggle i {
+      transform: rotate(180deg);
+    }
 
-  .subscribe-form input {
-    padding-inline: 12px;
-  }
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translate(-50%, 10px);
+      background: var(--white);
+      min-width: 280px;
+      padding: 12px 0;
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.14);
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.3s;
+    }
 
-  .subscribe-form button {
-    flex-basis: 48px;
-    width: 48px;
-  }
-}
+    .dropdown:hover .dropdown-menu,
+    .dropdown:focus-within .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, 0);
+    }
 
-/* Reveal animation */
-.reveal{opacity:0;transform:translateY(40px);transition:opacity .8s ease,transform .8s ease}
-.reveal.visible{opacity:1;transform:translateY(0)}
+    nav.desktop .dropdown-menu a {
+      display: block;
+      padding: 16px 32px;
+      font-size: 0.95rem;
+      text-align: center;
+      border-bottom: 1px solid #f0f0f0;
+    }
 
-/* ---------- RESPONSIVE ---------- */
-@media(max-width:960px){
-  nav.desktop{display:none}
-  .hamburger{display:flex}
-  .about-grid,.portfolio-grid{grid-template-columns:1fr;gap:40px}
-  .about-visual{height:300px;min-height:300px}
-  .footer-grid{grid-template-columns:1fr;gap:36px;text-align:center}
-  .footer-grid img{margin-left:auto;margin-right:auto}
-  .footer-grid p{margin-left:auto;margin-right:auto}
-  .footer-grid ul{padding:0}
-  .subscribe-box{max-width:360px;margin-left:auto;margin-right:auto}
-  .footer-bottom{justify-content:center;text-align:center}
-  .social-icons{justify-content:center}
-  section{padding:70px 7%}
-}
-@media(max-width:600px){
-  header{padding:0 7%}
-  .logo img{height:34px}
-  .btn-connect{padding:11px 20px;font-size:.8rem}
-  .portfolio-images{grid-auto-rows:110px}
-}
-</style>
+    .dropdown-menu a:last-child {
+      border: none;
+    }
+
+    .dropdown-menu a:hover {
+      background: var(--grey);
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .account-icon {
+      color: var(--black);
+      font-size: 1.25rem;
+      text-decoration: none;
+      transition: color 0.3s, transform 0.3s;
+    }
+
+    .account-icon:hover {
+      color: var(--gold);
+      transform: scale(1.1);
+    }
+
+    .btn-connect {
+      background: var(--black);
+      color: var(--white);
+      border: none;
+      padding: 13px 30px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      letter-spacing: 0.5px;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .btn-connect span {
+      position: relative;
+      z-index: 2;
+    }
+
+    .btn-connect:hover {
+      background: var(--gold);
+      color: var(--black);
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+    }
+
+    .hamburger span {
+      width: 24px;
+      height: 1.6px;
+      background: var(--black);
+      display: block;
+      transition: 0.3s;
+    }
+
+    /* ---------- MOBILE SIDEBAR ---------- */
+
+    .mobile-sidebar {
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 100vh;
+      height: 100dvh;
+      width: 90%;
+      max-width: 360px;
+      background: var(--white);
+      z-index: 1100;
+      transform: translateX(100%);
+      visibility: hidden;
+      transition:
+        transform 0.4s cubic-bezier(0.77, 0, 0.18, 1),
+        visibility 0.4s;
+      padding: 28px 26px;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      box-shadow: -20px 0 50px rgba(0, 0, 0, 0.15);
+    }
+
+    .mobile-sidebar.open {
+      transform: translateX(0);
+      visibility: visible;
+    }
+
+    .mobile-sidebar .close-btn {
+      align-self: flex-end;
+      background: none;
+      border: none;
+      font-size: 1.4rem;
+      cursor: pointer;
+      margin-bottom: 24px;
+    }
+
+    .mobile-sidebar nav {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .mobile-sidebar nav a {
+      color: var(--black);
+      text-decoration: none;
+      font-size: 1.05rem;
+      font-weight: 500;
+      padding: 14px 10px;
+      border-bottom: 1px solid #f0f0f0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .mobile-sidebar nav a i {
+      font-size: 0.75rem;
+      color: #999;
+    }
+
+    .mobile-sidebar .sub-links {
+      display: none;
+      flex-direction: column;
+      padding-left: 16px;
+    }
+
+    .mobile-sidebar .sub-links a {
+      font-size: 0.9rem;
+      color: #555;
+      border: none;
+      padding: 9px 10px;
+    }
+
+    .mobile-sidebar .sub-links.open {
+      display: flex;
+    }
+
+    .mobile-sidebar .btn-connect {
+      width: 100%;
+      margin-top: 26px;
+      padding: 16px;
+      font-size: 1rem;
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      z-index: 1050;
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.3s;
+    }
+
+    .overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* ---------- HERO ---------- */
+
+    .hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 7% 80px;
+      background: url("background.jpg") center / cover no-repeat;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.62);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 820px;
+      min-width: 0;
+    }
+
+    .hero h1 {
+      color: var(--white);
+      font-size: clamp(2.2rem, 6vw, 4.4rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -1px;
+    }
+
+    .hero h1 .highlight {
+      color: var(--gold);
+    }
+
+    .hero p {
+      color: rgba(255, 255, 255, 0.85);
+      margin: 22px auto 36px;
+      max-width: 620px;
+      font-size: clamp(0.95rem, 2vw, 1.15rem);
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 15px 34px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-explore {
+      background: var(--gold);
+      color: var(--white);
+    }
+
+    .btn-explore::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: var(--white);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.35s cubic-bezier(0.77, 0, 0.18, 1);
+    }
+
+    .btn-explore:hover::before {
+      transform: scaleX(1);
+    }
+
+    .btn-explore span {
+      position: relative;
+      z-index: 2;
+      transition: color 0.3s;
+    }
+
+    .btn-explore:hover span {
+      color: var(--black);
+    }
+
+    .btn-about {
+      background: var(--white);
+      color: var(--black);
+      transition: 0.3s;
+    }
+
+    .btn-about:hover {
+      background: var(--black);
+      color: var(--white);
+    }
+
+    /* ---------- MARQUEE ---------- */
+
+    .marquee-strip {
+      background: var(--black);
+      padding: 14px 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .marquee-track {
+      display: inline-flex;
+      width: max-content;
+      animation: scroll 28s linear infinite;
+    }
+
+    .marquee-track > span {
+      color: var(--white);
+      font-size: 0.92rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      padding: 0 24px;
+      display: inline-flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .marquee-track .star {
+      color: var(--green);
+      font-size: 1.1rem;
+    }
+
+    @keyframes scroll {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    /* ---------- SECTIONS ---------- */
+
+    section {
+      padding: 100px 7%;
+    }
+
+    .section-label {
+      color: var(--gold);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+
+    .section-text {
+      color: #555;
+      line-height: 1.8;
+      max-width: 640px;
+      font-weight: 300;
+    }
+
+    /* ---------- ABOUT ---------- */
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 60px;
+      align-items: stretch;
+    }
+
+    .about-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+    }
+
+    .about-cards {
+      display: grid;
+      gap: 18px;
+      margin-top: 34px;
+    }
+
+    .about-card {
+      background: var(--grey);
+      padding: 24px;
+      border-left: 3px solid var(--gold);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .about-card:hover {
+      transform: translateX(8px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    .about-card h4 {
+      font-size: 1rem;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .about-card h4 i {
+      color: var(--gold);
+    }
+
+    .about-card p {
+      font-size: 0.9rem;
+      color: #555;
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    .about-visual {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: 420px;
+      background: url("background.jpg") center / cover no-repeat;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    /* ---------- PORTFOLIO ---------- */
+
+    .portfolio-section {
+      background: var(--grey);
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+      gap: 60px;
+      align-items: center;
+    }
+
+    .portfolio-grid > div {
+      min-width: 0;
+    }
+
+    .portfolio-images {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-auto-rows: 150px;
+      gap: 14px;
+    }
+
+    .p-item {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      border-radius: 10px;
+    }
+
+    .p-item img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 10px;
+      transition: transform 0.5s;
+    }
+
+    .p-item:hover img {
+      transform: scale(1.08);
+    }
+
+    .p-item::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0);
+      transition: 0.4s;
+      pointer-events: none;
+    }
+
+    .p-item:hover::after,
+    .p-item:focus-within::after {
+      background: rgba(0, 0, 0, 0.45);
+    }
+
+    .p-item .visit {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.8);
+      opacity: 0;
+      background: var(--white);
+      color: var(--black);
+      border: none;
+      padding: 10px 22px;
+      font-weight: 600;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: 0.35s;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .p-item:hover .visit,
+    .p-item:focus-within .visit {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .p1 {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+
+    .p2,
+    .p3,
+    .p4,
+    .p5 {
+      grid-column: span 2;
+      grid-row: span 1;
+    }
+
+    .p6 {
+      grid-column: span 4;
+      grid-row: span 1;
+    }
+
+    /* ---------- PARTNERS ---------- */
+
+    .partners {
+      background: var(--dark);
+      padding: 26px 0;
+      overflow: hidden;
+    }
+
+    .partners .marquee-track {
+      animation-duration: 22s;
+      align-items: center;
+    }
+
+    .partners img {
+      flex-shrink: 0;
+      width: auto;
+      max-width: none;
+      height: 38px;
+      opacity: 0.85;
+      transition: 0.3s;
+      margin-inline: 34px;
+    }
+
+    .partners img:hover {
+      opacity: 1;
+    }
+
+    /* ---------- UPDATES ---------- */
+
+    .updates-heading {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto 10px;
+    }
+
+    .updates-grid {
+      display: grid;
+      grid-template-columns: repeat(
+        auto-fit,
+        minmax(min(100%, 280px), 1fr)
+      );
+      gap: 24px;
+      margin-top: 40px;
+    }
+
+    .update-card {
+      min-width: 0;
+      background: var(--white);
+      border: 1px solid #ececec;
+      padding: 28px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .update-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+    }
+
+    .update-card .date {
+      color: var(--gold);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .update-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+    }
+
+    .update-card p {
+      font-size: 0.9rem;
+      color: #555;
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    .update-card a {
+      color: var(--black);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 16px;
+      transition: gap 0.3s;
+    }
+
+    .update-card a:hover {
+      gap: 14px;
+    }
+
+    /* ---------- FOOTER ---------- */
+
+    footer {
+      background: var(--black);
+      color: var(--white);
+      padding: 64px 7% 26px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns:
+        minmax(0, 1.4fr)
+        repeat(3, minmax(0, 1fr));
+      gap: 32px;
+      margin-bottom: 36px;
+    }
+
+    .footer-grid > div {
+      min-width: 0;
+    }
+
+    .footer-brand {
+      width: 100%;
+      max-width: 340px;
+    }
+
+    .footer-logo {
+      display: block;
+      width: auto;
+      max-width: 100%;
+      height: 46px;
+      object-fit: contain;
+      margin-bottom: 16px;
+    }
+
+    .footer-description {
+      width: 100%;
+      margin: 0;
+      color: #aaa;
+      font-size: 0.875rem;
+      font-weight: 300;
+      line-height: 1.75;
+      overflow-wrap: anywhere;
+    }
+
+    .footer-grid h4 {
+      font-size: 0.95rem;
+      margin-bottom: 14px;
+      letter-spacing: 1px;
+    }
+
+    .footer-grid ul {
+      list-style: none;
+    }
+
+    .footer-grid ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-grid ul li:last-child {
+      margin-bottom: 0;
+    }
+
+    .footer-grid ul a {
+      color: #aaa;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.3s;
+    }
+
+    .footer-grid ul a:hover {
+      color: var(--gold);
+    }
+
+    /* ---------- SUBSCRIPTION ---------- */
+
+    .footer-newsletter {
+      width: 100%;
+      min-width: 0;
+      margin-top: 18px;
+      padding: 0;
+    }
+
+    .subscribe-form {
+      position: relative;
+      display: flex;
+      align-items: stretch;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      height: 44px;
+      margin: 0;
+      padding: 0;
+      border: 1px solid #333;
+      background: var(--black);
+    }
+
+    .subscribe-form input {
+      flex: 1 1 0%;
+      width: 0;
+      min-width: 0;
+      height: 100%;
+      margin: 0;
+      padding: 0 12px;
+      border: none;
+      border-radius: 0;
+      background: transparent;
+      color: var(--white);
+      font-family: inherit;
+      font-size: 16px;
+      line-height: normal;
+    }
+
+    .subscribe-form input::placeholder {
+      color: #888;
+      opacity: 1;
+    }
+
+    .subscribe-form button {
+      display: grid;
+      place-items: center;
+      flex: 0 0 46px;
+      width: 46px;
+      min-width: 0;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      border: none;
+      border-radius: 0;
+      background: var(--gold);
+      color: var(--white);
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .subscribe-form button svg {
+      display: block;
+      width: 20px;
+      height: 20px;
+    }
+
+    .subscribe-form button:hover {
+      background: var(--white);
+      color: var(--black);
+    }
+
+    .subscribe-form input:focus-visible,
+    .subscribe-form button:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: -3px;
+    }
+
+    .subscribe-label {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .subscribe-message {
+      margin-top: 10px;
+      color: #aaa;
+      font-size: 0.78rem;
+      line-height: 1.6;
+    }
+
+    .subscribe-message:empty {
+      display: none;
+    }
+
+    /* ---------- SOCIAL LINKS ---------- */
+
+    .social-icons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .social-icons a {
+      flex: 0 0 38px;
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #333;
+      color: #aaa;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .social-icons a:hover {
+      background: var(--gold);
+      color: var(--black);
+      border-color: var(--gold);
+      transform: translateY(-4px);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid #222;
+      padding-top: 22px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      color: #777;
+      font-size: 0.82rem;
+    }
+
+    /* ---------- REVEAL ANIMATION ---------- */
+
+    .js .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .js .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+
+    @media (max-width: 960px) {
+      nav.desktop {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .about-grid,
+      .portfolio-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 40px;
+      }
+
+      .about-visual {
+        height: 300px;
+        min-height: 300px;
+      }
+
+      section {
+        padding: 70px 7%;
+      }
+
+      .hero {
+        padding: 120px 7% 80px;
+      }
+
+      footer {
+        padding: 48px 7% 24px;
+      }
+
+      .footer-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 30px;
+        margin-bottom: 30px;
+        text-align: center;
+      }
+
+      .footer-brand {
+        margin-inline: auto;
+      }
+
+      .footer-logo {
+        margin-inline: auto;
+      }
+
+      .footer-grid ul {
+        padding: 0;
+      }
+
+      .social-icons {
+        justify-content: center;
+      }
+
+      .footer-bottom {
+        justify-content: center;
+        padding-top: 20px;
+        gap: 8px;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 600px) {
+      header {
+        padding: 0 5%;
+      }
+
+      .logo img {
+        height: 34px;
+      }
+
+      .header-right {
+        gap: 12px;
+      }
+
+      .btn-connect {
+        padding: 11px 18px;
+        font-size: 0.8rem;
+      }
+
+      .portfolio-images {
+        grid-auto-rows: 110px;
+        gap: 10px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .logo img {
+        height: 30px;
+      }
+
+      .header-right {
+        gap: 9px;
+      }
+
+      .account-icon {
+        font-size: 1.15rem;
+      }
+
+      .btn-connect {
+        padding: 10px 12px;
+        font-size: 0.75rem;
+      }
+
+      .hamburger {
+        padding: 4px;
+      }
+
+      .hamburger span {
+        width: 22px;
+      }
+
+      .subscribe-form input {
+        padding-inline: 10px;
+      }
+
+      .subscribe-form button {
+        flex-basis: 42px;
+        width: 42px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .marquee-track {
+        animation: none;
+      }
+
+      .js .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+    }
+  </style>
 </head>
+
 <body>
+  <!-- HEADER -->
+  <header>
+    <a href="#home" class="logo" aria-label="Trensio home">
+      <img src="trensio.png" alt="Trensio" />
+    </a>
 
+    <nav class="desktop" aria-label="Main navigation">
+      <a href="#home">Home</a>
+      <a href="#updates">Updates</a>
 
-<!-- HEADER -->
-<header>
-  <a href="#" class="logo"><img src="trensio.png" alt="Trensio"></a>
+      <div class="dropdown">
+        <a href="#rise" class="dropdown-toggle">
+          Main
+          <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+        </a>
 
-  <nav class="desktop">
-    <a href="#home">Home</a>
-    <a href="#updates">Updates</a>
-    <div class="dropdown">
-      <a href="#" class="dropdown-toggle">Main <i class="fa-solid fa-chevron-down"></i></a>
-      <div class="dropdown-menu">
+        <div class="dropdown-menu">
+          <a href="#rise">Rise Together</a>
+          <a href="#other">Other Areas</a>
+          <a href="admin-login.html">Administrator</a>
+        </div>
+      </div>
+
+      <a href="#portfolio">Portfolio</a>
+      <a href="#about">About</a>
+    </nav>
+
+    <div class="header-right">
+      <a
+        href="sign-form.html"
+        class="account-icon"
+        aria-label="Your account"
+      >
+        <i class="fa-regular fa-circle-user" aria-hidden="true"></i>
+      </a>
+
+      <button class="btn-connect" type="button">
+        <span>Connect</span>
+      </button>
+
+      <button
+        class="hamburger"
+        id="hamburger"
+        type="button"
+        aria-label="Open navigation"
+        aria-controls="mobileSidebar"
+        aria-expanded="false"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- MOBILE SIDEBAR -->
+  <div class="overlay" id="overlay"></div>
+
+  <aside
+    class="mobile-sidebar"
+    id="mobileSidebar"
+    aria-label="Mobile navigation"
+    aria-hidden="true"
+    inert
+  >
+    <button
+      class="close-btn"
+      id="closeSidebar"
+      type="button"
+      aria-label="Close navigation"
+    >
+      <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+    </button>
+
+    <nav aria-label="Mobile main navigation">
+      <a href="#home">Home</a>
+      <a href="#updates">Updates</a>
+
+      <a
+        href="#mainSubLinks"
+        id="mainToggle"
+        aria-controls="mainSubLinks"
+        aria-expanded="false"
+      >
+        Main
+        <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+      </a>
+
+      <div class="sub-links" id="mainSubLinks">
         <a href="#rise">Rise Together</a>
-        <a href="#technology">Other Areaa</a>
+        <a href="#other">Other Areas</a>
         <a href="admin-login.html">Administrator</a>
       </div>
-    </div>
-    <a href="#portfolio">Portfolio</a>
-    <a href="#about">About</a>
-  </nav>
 
-  <div class="header-right">
-    <a href="sign-form.html" class="account-icon"><i class="fa-regular fa-circle-user"></i></a>
-    <button class="btn-connect"><span>Connect</span></button>
-    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
-  </div>
-</header>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#about">About</a>
+    </nav>
 
-<!-- MOBILE SIDEBAR -->
-<div class="overlay" id="overlay"></div>
-<aside class="mobile-sidebar" id="mobileSidebar">
-  <button class="close-btn" id="closeSidebar"><i class="fa-solid fa-xmark"></i></button>
-  <nav>
-    <a href="#home">Home</a>
-    <a href="#updates">Updates</a>
-    <a href="#" id="mainToggle">Main <i class="fa-solid fa-chevron-down"></i></a>
-    <div class="sub-links" id="mainSubLinks">
-      <a href="#rise">Rise Together</a>
-      <a href="#technology">Other Areas</a>
-      <a href="admin-login.html">Administrator</a>
-    </div>
-    <a href="#portfolio">Portfolio</a>
-    <a href="#about">About</a>
-  </nav>
-  <button class="btn-connect"><span>Connect</span></button>
-</aside>
-
-<!-- HERO -->
-<section class="hero" id="home">
-  <div class="hero-content">
-    <h1>We Rise by <span class="highlight">Raising Others</span></h1>
-    <p>Trensio empowers individuals and communities through skills, technology, creativity and opportunity — helping every person rise while lifting others along the way.</p>
-    <div class="hero-buttons">
-      <a href="#portfolio" class="btn btn-explore"><span>Explore</span></a>
-      <a href="#about" class="btn btn-about">About</a>
-    </div>
-  </div>
-</section>
-
-<!-- MARQUEE -->
-<div class="marquee-strip">
-  <div class="marquee-track" id="marqueeTrack"></div>
-</div>
-
-<!-- ABOUT -->
-<section id="about">
-  <div class="about-grid">
-    <div class="about-content reveal">
-      <div class="section-label">About Us</div>
-      <h2 class="section-title">Building Skills.<br>Creating Opportunity.</h2>
-      <p class="section-text">Trensio is a growth-focused organization dedicated to empowering young people and communities through practical education, digital skills and creative development. We believe that when one person rises, they create a path for others to rise too.</p>
-      <div class="about-cards">
-        <div class="about-card">
-          <h4><i class="fa-regular fa-lightbulb"></i> Our Mission</h4>
-          <p>To equip individuals with relevant skills, knowledge and confidence needed to grow, create and succeed in a changing world.</p>
-        </div>
-        <div class="about-card">
-          <h4><i class="fa-regular fa-eye"></i> Our Vision</h4>
-          <p>A generation of skilled, confident and empowered people who use their abilities to uplift their communities.</p>
-        </div>
-        <div class="about-card">
-          <h4><i class="fa-regular fa-graduation-cap"></i> Courses & Trainings</h4>
-          <p>We provide courses and hands-on trainings in graphic designing, web designing, web development, artificial intelligence, MS Office and other practical random skills.</p>
-        </div>
-      </div>
-    </div>
-    <div class="about-visual reveal"></div>
-  </div>
-</section>
-
-<!-- PORTFOLIO -->
-<section id="portfolio" style="background:var(--grey)">
-  <div class="portfolio-grid">
-    <div class="reveal">
-      <div class="section-label">Portfolio</div>
-      <h2 class="section-title">Work That Speaks<br>For Itself</h2>
-      <p class="section-text">Explore a selection of our creative projects, designs and digital solutions. Each project reflects our commitment to quality, creativity and real impact.</p>
-      <a href="#" class="btn btn-explore" style="margin-top:28px"><span>View All Projects</span></a>
-    </div>
-    <div class="portfolio-images reveal">
-      <div class="p-item p1"><img src="portfolio1.jpg" alt="Project 1"><button class="visit">Visit <i class="fa-solid fa-arrow-up-right-from-square"></i></button></div>
-      <div class="p-item p2"><img src="portfolio2.jpg" alt="Project 2"><button class="visit">Visit <i class="fa-solid fa-arrow-up-right-from-square"></i></button></div>
-      <div class="p-item p3"><img src="portfolio3.jpg" alt="Project 3"><button class="visit">Visit <i class="fa-solid fa-arrow-up-right-from-square"></i></button></div>
-      <div class="p-item p4"><img src="portfolio4.jpg" alt="Project 4"><button class="visit">Visit <i class="fa-solid fa-arrow-up-right-from-square"></i></button></div>
-      <div class="p-item p5"><img src="portfolio5.jpg" alt="Project 5"><button class="visit">Visit <i class="fa-solid fa-arrow-up-right-from-square"></i></button></div>
-      <div class="p-item p6"><img src="portfolio6.jpg" alt="Project 6"><button class="visit">Visit <i class="fa-solid fa-arrow-up-right-from-square"></i></button></div>
-    </div>
-  </div>
-</section>
-
-<!-- PARTNERS -->
-<div class="partners">
-  <div class="marquee-track" id="partnersTrack"></div>
-</div>
-
-<!-- UPDATES -->
-<section id="updates">
-  <div class="reveal" style="text-align:center;max-width:640px;margin:0 auto 10px">
-    <div class="section-label">Updates</div>
-    <h2 class="section-title">Latest Announcements</h2>
-    <p class="section-text">Stay informed about new courses, trainings, events and opportunities from Trensio.</p>
-  </div>
-  <div class="updates-grid">
-    <div class="update-card reveal">
-      <div class="date">NEW COURSE</div>
-      <h3>Web Development Training</h3>
-      <p>Learn how to build modern, responsive websites from scratch using HTML, CSS and JavaScript.</p>
-      <a href="#">Read More <i class="fa-solid fa-arrow-right"></i></a>
-    </div>
-    <div class="update-card reveal">
-      <div class="date">ANNOUNCEMENT</div>
-      <h3>Graphic Design Workshop</h3>
-      <p>Join our upcoming practical workshop on branding, posters, social media designs and creative visuals.</p>
-      <a href="#">Read More <i class="fa-solid fa-arrow-right"></i></a>
-    </div>
-    <div class="update-card reveal">
-      <div class="date">OPPORTUNITY</div>
-      <h3>AI & Digital Skills Program</h3>
-      <p>Discover how artificial intelligence and digital tools can boost creativity, productivity and career growth.</p>
-      <a href="#">Read More <i class="fa-solid fa-arrow-right"></i></a>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer id="rise">
-  <div class="footer-grid">
-    <div>
-      <img src="trensio1.png" alt="Trensio">
-      <p>Trensio — We rise by raising others. Empowering people through skills, technology, creativity and opportunity.</p>
-    </div>
-<div class="footer-newsletter">
-
-  <form class="subscribe-form" action="#" method="post">
-    <label class="subscribe-label" for="subscribe-email">
-      Email address
-    </label>
-
-    <input
-      id="subscribe-email"
-      name="email"
-      type="email"
-      placeholder="Enter your email"
-      autocomplete="email"
-      required
-    />
-
-    <button type="submit" aria-label="Subscribe">
-      <svg
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        aria-hidden="true"
-      >
-        <path d="m22 2-7 20-4-9-9-4Z" />
-        <path d="M22 2 11 13" />
-      </svg>
+    <button class="btn-connect" type="button">
+      <span>Connect</span>
     </button>
-  </form>
-</div>
+  </aside>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <h1>
+          We Rise by
+          <span class="highlight">Raising Others</span>
+        </h1>
+
+        <p>
+          Trensio empowers individuals and communities through skills,
+          technology, creativity and opportunity — helping every person
+          rise while lifting others along the way.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="#portfolio" class="btn btn-explore">
+            <span>Explore</span>
+          </a>
+
+          <a href="#about" class="btn btn-about">About</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee-strip">
+      <div class="marquee-track" id="marqueeTrack"></div>
     </div>
-    <div>
-      <h4>Quick Links</h4>
-      <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#portfolio">Portfolio</a></li>
-        <li><a href="#updates">Updates</a></li>
-      </ul>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="about-grid">
+        <div class="about-content reveal">
+          <div class="section-label">About Us</div>
+
+          <h2 class="section-title">
+            Building Skills.<br />
+            Creating Opportunity.
+          </h2>
+
+          <p class="section-text">
+            Trensio is a growth-focused organization dedicated to
+            empowering young people and communities through practical
+            education, digital skills and creative development. We
+            believe that when one person rises, they create a path for
+            others to rise too.
+          </p>
+
+          <div class="about-cards">
+            <div class="about-card">
+              <h4>
+                <i class="fa-regular fa-lightbulb" aria-hidden="true"></i>
+                Our Mission
+              </h4>
+
+              <p>
+                To equip individuals with relevant skills, knowledge
+                and confidence needed to grow, create and succeed in a
+                changing world.
+              </p>
+            </div>
+
+            <div class="about-card">
+              <h4>
+                <i class="fa-regular fa-eye" aria-hidden="true"></i>
+                Our Vision
+              </h4>
+
+              <p>
+                A generation of skilled, confident and empowered people
+                who use their abilities to uplift their communities.
+              </p>
+            </div>
+
+            <div class="about-card">
+              <h4>
+                <i
+                  class="fa-solid fa-graduation-cap"
+                  aria-hidden="true"
+                ></i>
+                Courses &amp; Trainings
+              </h4>
+
+              <p>
+                We provide courses and hands-on trainings in graphic
+                designing, web designing, web development, artificial
+                intelligence, MS Office and other practical random
+                skills.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-visual reveal" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio" class="portfolio-section">
+      <div class="portfolio-grid">
+        <div class="reveal">
+          <div class="section-label">Portfolio</div>
+
+          <h2 class="section-title">
+            Work That Speaks<br />
+            For Itself
+          </h2>
+
+          <p class="section-text">
+            Explore a selection of our creative projects, designs and
+            digital solutions. Each project reflects our commitment to
+            quality, creativity and real impact.
+          </p>
+
+          <a
+            href="#"
+            class="btn btn-explore"
+            style="margin-top: 28px"
+          >
+            <span>View All Projects</span>
+          </a>
+        </div>
+
+        <div class="portfolio-images reveal">
+          <div class="p-item p1">
+            <img src="portfolio1.jpg" alt="Project 1" loading="lazy" />
+            <button class="visit" type="button">
+              Visit
+              <i
+                class="fa-solid fa-arrow-up-right-from-square"
+                aria-hidden="true"
+              ></i>
+            </button>
+          </div>
+
+          <div class="p-item p2">
+            <img src="portfolio2.jpg" alt="Project 2" loading="lazy" />
+            <button class="visit" type="button">
+              Visit
+              <i
+                class="fa-solid fa-arrow-up-right-from-square"
+                aria-hidden="true"
+              ></i>
+            </button>
+          </div>
+
+          <div class="p-item p3">
+            <img src="portfolio3.jpg" alt="Project 3" loading="lazy" />
+            <button class="visit" type="button">
+              Visit
+              <i
+                class="fa-solid fa-arrow-up-right-from-square"
+                aria-hidden="true"
+              ></i>
+            </button>
+          </div>
+
+          <div class="p-item p4">
+            <img src="portfolio4.jpg" alt="Project 4" loading="lazy" />
+            <button class="visit" type="button">
+              Visit
+              <i
+                class="fa-solid fa-arrow-up-right-from-square"
+                aria-hidden="true"
+              ></i>
+            </button>
+          </div>
+
+          <div class="p-item p5">
+            <img src="portfolio5.jpg" alt="Project 5" loading="lazy" />
+            <button class="visit" type="button">
+              Visit
+              <i
+                class="fa-solid fa-arrow-up-right-from-square"
+                aria-hidden="true"
+              ></i>
+            </button>
+          </div>
+
+          <div class="p-item p6">
+            <img src="portfolio6.jpg" alt="Project 6" loading="lazy" />
+            <button class="visit" type="button">
+              Visit
+              <i
+                class="fa-solid fa-arrow-up-right-from-square"
+                aria-hidden="true"
+              ></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PARTNERS -->
+    <div class="partners">
+      <div class="marquee-track" id="partnersTrack"></div>
     </div>
-    <div>
-      <h4>Our Areas</h4>
-      <ul>
-        <li><a href="admin-login.html">Administrator</a></li>
-        <li><a href="#rise">Rise Together</a></li>
-        <li><a href="#other">Other Areas</a></li>
-        <li><a href="#">Courses & Trainings</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4>Follow Us</h4>
-      <div class="social-icons">
-        <a href="https://www.facebook.com/profile.php?id=61586705475922"><i class="fa-brands fa-facebook-f"></i></a>
-        <a href="https://signal.org/install"><i class="fa-brands fa-whatsapp"></i></a>
-        <a href="linkedin.com/in/emmanuel-kamtima-0aa91b33a"><i class="fa-brands fa-linkedin-in"></i></a>
-        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-        <a href="https://www.tiktok.com/@emmanuelkamtima?_r=1&_d=f59ih136c6ai63&sec_uid=MS4wLjABAAAAK6XXeiLSoUsugzAySfXKUy9xo47mIofLwm_VkQa-O9mov877hXBD6HgpbLoUr0_2&share_author_id=7247985091087025158&sharer_language=en&source=h5_m&u_code=e8gm1b7ibf63jj&timestamp=1795172168&user_id=7247985091087025158&sec_user_id=MS4wLjABAAAAK6XXeiLSoUsugzAySfXKUy9xo47mIofLwm_VkQa-O9mov877hXBD6HgpbLoUr0_2&item_author_type=1&utm_source=copy&utm_campaign=client_share&utm_medium=android&share_iid=7709967112886699794&share_link_id=d531c821-cf66-4851-8396-fdc4f72d5a25&share_app_id=1233&ugbiz_name=ACCOUNT&ug_btm=b8727%2Cb7360&social_share_type=5&enable_checksum=1"><i class="fa-brands fa-tiktok"></i></a>
+
+    <!-- UPDATES -->
+    <section id="updates">
+      <div class="updates-heading reveal">
+        <div class="section-label">Updates</div>
+
+        <h2 class="section-title">Latest Announcements</h2>
+
+        <p class="section-text">
+          Stay informed about new courses, trainings, events and
+          opportunities from Trensio.
+        </p>
+      </div>
+
+      <div class="updates-grid">
+        <div class="update-card reveal">
+          <div class="date">NEW COURSE</div>
+          <h3>Web Development Training</h3>
+
+          <p>
+            Learn how to build modern, responsive websites from scratch
+            using HTML, CSS and JavaScript.
+          </p>
+
+          <a href="#">
+            Read More
+            <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+          </a>
+        </div>
+
+        <div class="update-card reveal">
+          <div class="date">ANNOUNCEMENT</div>
+          <h3>Graphic Design Workshop</h3>
+
+          <p>
+            Join our upcoming practical workshop on branding, posters,
+            social media designs and creative visuals.
+          </p>
+
+          <a href="#">
+            Read More
+            <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+          </a>
+        </div>
+
+        <div class="update-card reveal">
+          <div class="date">OPPORTUNITY</div>
+          <h3>AI &amp; Digital Skills Program</h3>
+
+          <p>
+            Discover how artificial intelligence and digital tools can
+            boost creativity, productivity and career growth.
+          </p>
+
+          <a href="#">
+            Read More
+            <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer id="rise">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img
+          src="trensio1.png"
+          alt="Trensio"
+          class="footer-logo"
+          loading="lazy"
+        />
+
+        <p class="footer-description">
+          Trensio — We rise by raising others. Empowering people
+          through skills, technology, creativity and opportunity.
+        </p>
+
+        <div class="footer-newsletter">
+          <form class="subscribe-form" id="subscribeForm">
+            <label class="subscribe-label" for="subscribe-email">
+              Email address
+            </label>
+
+            <input
+              id="subscribe-email"
+              name="email"
+              type="email"
+              placeholder="Enter your email"
+              autocomplete="email"
+              aria-describedby="subscribeMessage"
+              required
+            />
+
+            <button type="submit" aria-label="Subscribe">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="m22 2-7 20-4-9-9-4Z" />
+                <path d="M22 2 11 13" />
+              </svg>
+            </button>
+          </form>
+
+          <p
+            class="subscribe-message"
+            id="subscribeMessage"
+            role="status"
+            aria-live="polite"
+          ></p>
+        </div>
+      </div>
+
+      <div>
+        <h4>Quick Links</h4>
+
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#updates">Updates</a></li>
+        </ul>
+      </div>
+
+      <div id="other">
+        <h4>Our Areas</h4>
+
+        <ul>
+          <li>
+            <a href="admin-login.html">Administrator</a>
+          </li>
+          <li><a href="#rise">Rise Together</a></li>
+          <li><a href="#other">Other Areas</a></li>
+          <li><a href="#about">Courses &amp; Trainings</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Follow Us</h4>
+
+        <div class="social-icons">
+          <a
+            href="https://www.facebook.com/profile.php?id=61586705475922"
+            aria-label="Facebook"
+          >
+            <i class="fa-brands fa-facebook-f" aria-hidden="true"></i>
+          </a>
+
+          <a href="https://signal.org/install" aria-label="Signal">
+            <i class="fa-solid fa-comment" aria-hidden="true"></i>
+          </a>
+
+          <a
+            href="https://www.linkedin.com/in/emmanuel-kamtima-0aa91b33a"
+            aria-label="LinkedIn"
+          >
+            <i class="fa-brands fa-linkedin-in" aria-hidden="true"></i>
+          </a>
+
+          <a href="#" aria-label="Instagram">
+            <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+          </a>
+
+          <a
+            href="https://www.tiktok.com/@emmanuelkamtima"
+            aria-label="TikTok"
+          >
+            <i class="fa-brands fa-tiktok" aria-hidden="true"></i>
+          </a>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="footer-bottom">
-    <span>© 2026 Trensio. All rights reserved.</span>
-    <span>We Rise by Raising Others</span>
-  </div>
-</footer>
 
-<script>
-// Skeleton loader
-window.addEventListener('load',()=>{
-  setTimeout(()=>document.getElementById('loader').classList.add('hidden'),1200);
-});
+    <div class="footer-bottom">
+      <span>© 2026 Trensio. All rights reserved.</span>
+      <span>We Rise by Raising Others</span>
+    </div>
+  </footer>
 
-// Marquee words
-const words=['Graphic Designing','Web Designing','Web Development','Artificial Intelligence','MS Office','Empowerment','Random Skills'];
-const track=document.getElementById('marqueeTrack');
-let html='';
-for(let i=0;i<2;i++){
-  words.forEach(w=>{
-    html+=`<span>${w}<span class="star">✳</span></span>`;
-  });
-}
-track.innerHTML=html;
+  <script>
+    // Marquee words
+    const words = [
+      "Graphic Designing",
+      "Web Designing",
+      "Web Development",
+      "Artificial Intelligence",
+      "MS Office",
+      "Empowerment",
+      "Random Skills"
+    ];
 
-// Partner logos marquee
-const partners=document.getElementById('partnersTrack');
-let phtml='';
-for(let i=0;i<2;i++){
-  for(let n=1;n<=6;n++){
-    phtml+=`<img src="${n}.png" alt="Partner ${n}">`;
-  }
-}
-partners.innerHTML=phtml;
+    const marqueeTrack = document.getElementById("marqueeTrack");
 
-// Mobile sidebar
-const sidebar=document.getElementById('mobileSidebar');
-const overlay=document.getElementById('overlay');
-document.getElementById('hamburger').onclick=()=>{sidebar.classList.add('open');overlay.classList.add('show');};
-document.getElementById('closeSidebar').onclick=closeSidebar;
-overlay.onclick=closeSidebar;
-function closeSidebar(){sidebar.classList.remove('open');overlay.classList.remove('show');}
-document.querySelectorAll('.mobile-sidebar nav a').forEach(a=>{
-  if(a.id!=='mainToggle')a.addEventListener('click',closeSidebar);
-});
-document.getElementById('mainToggle').onclick=(e)=>{
-  e.preventDefault();
-  document.getElementById('mainSubLinks').classList.toggle('open');
-};
+    for (let copy = 0; copy < 2; copy++) {
+      words.forEach((word) => {
+        const item = document.createElement("span");
+        item.textContent = word;
 
-// Scroll reveal
-const observer=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
-},{threshold:.15});
-document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+        const star = document.createElement("span");
+        star.className = "star";
+        star.textContent = "✳";
+        star.setAttribute("aria-hidden", "true");
 
-// Subscribe
-document.getElementById('subscribeBtn').onclick=()=>{
-  const email=document.getElementById('subscribeEmail').value.trim();
-  if(!email){alert('Please enter your email.');return;}
-  alert('Thank you for subscribing to Trensio!');
-  document.getElementById('subscribeEmail').value='';
-};
-</script>
+        item.appendChild(star);
+
+        if (copy === 1) {
+          item.setAttribute("aria-hidden", "true");
+        }
+
+        marqueeTrack.appendChild(item);
+      });
+    }
+
+    // Partner logos
+    const partnersTrack = document.getElementById("partnersTrack");
+
+    for (let copy = 0; copy < 2; copy++) {
+      for (let number = 1; number <= 6; number++) {
+        const image = document.createElement("img");
+
+        image.src = `${number}.png`;
+        image.alt = copy === 0 ? `Partner ${number}` : "";
+        image.loading = "lazy";
+
+        if (copy === 1) {
+          image.setAttribute("aria-hidden", "true");
+        }
+
+        partnersTrack.appendChild(image);
+      }
+    }
+
+    // Mobile sidebar
+    const sidebar = document.getElementById("mobileSidebar");
+    const overlay = document.getElementById("overlay");
+    const hamburger = document.getElementById("hamburger");
+    const closeButton = document.getElementById("closeSidebar");
+    const mainToggle = document.getElementById("mainToggle");
+    const mainSubLinks = document.getElementById("mainSubLinks");
+
+    let previousBodyOverflow = "";
+
+    function openSidebar() {
+      previousBodyOverflow = document.body.style.overflow;
+
+      sidebar.inert = false;
+      sidebar.setAttribute("aria-hidden", "false");
+      sidebar.classList.add("open");
+      overlay.classList.add("show");
+      hamburger.setAttribute("aria-expanded", "true");
+
+      document.body.style.overflow = "hidden";
+      closeButton.focus();
+    }
+
+    function closeSidebar() {
+      const wasOpen = sidebar.classList.contains("open");
+
+      if (!wasOpen) return;
+
+      hamburger.focus();
+
+      sidebar.classList.remove("open");
+      sidebar.setAttribute("aria-hidden", "true");
+      sidebar.inert = true;
+
+      overlay.classList.remove("show");
+      hamburger.setAttribute("aria-expanded", "false");
+
+      document.body.style.overflow = previousBodyOverflow;
+    }
+
+    hamburger.addEventListener("click", openSidebar);
+    closeButton.addEventListener("click", closeSidebar);
+    overlay.addEventListener("click", closeSidebar);
+
+    document.querySelectorAll(".mobile-sidebar nav a").forEach((link) => {
+      if (link.id !== "mainToggle") {
+        link.addEventListener("click", closeSidebar);
+      }
+    });
+
+    mainToggle.addEventListener("click", (event) => {
+      event.preventDefault();
+
+      const isOpen = mainSubLinks.classList.toggle("open");
+      mainToggle.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (!sidebar.classList.contains("open")) return;
+
+      if (event.key === "Escape") {
+        closeSidebar();
+        return;
+      }
+
+      if (event.key === "Tab") {
+        const focusableItems = Array.from(
+          sidebar.querySelectorAll(
+            'a[href], button:not([disabled]), input:not([disabled])'
+          )
+        ).filter((element) => element.getClientRects().length > 0);
+
+        const firstItem = focusableItems[0];
+        const lastItem = focusableItems[focusableItems.length - 1];
+
+        if (event.shiftKey && document.activeElement === firstItem) {
+          event.preventDefault();
+          lastItem.focus();
+        } else if (
+          !event.shiftKey &&
+          document.activeElement === lastItem
+        ) {
+          event.preventDefault();
+          firstItem.focus();
+        }
+      }
+    });
+
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 960) {
+        closeSidebar();
+      }
+    });
+
+    // Scroll reveal
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(
+        (entries, currentObserver) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              currentObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.15 }
+      );
+
+      document.documentElement.classList.add("js");
+
+      document.querySelectorAll(".reveal").forEach((element) => {
+        observer.observe(element);
+      });
+    }
+
+    // Subscription demo — connect a real backend before launch
+    const subscribeForm = document.getElementById("subscribeForm");
+    const subscribeMessage = document.getElementById("subscribeMessage");
+    const subscribeEmail = document.getElementById("subscribe-email");
+
+    subscribeForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      subscribeEmail.value = subscribeEmail.value.trim();
+
+      if (!subscribeForm.reportValidity()) return;
+
+      subscribeMessage.textContent =
+        "Subscriptions are not available yet. Your email has not been saved.";
+    });
+
+    subscribeEmail.addEventListener("input", () => {
+      subscribeMessage.textContent = "";
+    });
+  </script>
 </body>
 </html>
