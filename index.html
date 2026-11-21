@@ -158,6 +158,112 @@ footer{background:var(--black);color:var(--white);padding:80px 7% 30px}
 .social-icons a:hover{background:var(--gold);color:var(--black);border-color:var(--gold);transform:translateY(-4px)}
 .footer-bottom{border-top:1px solid #222;padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;color:#777;font-size:.82rem}
 
+  /*subscribe*/
+  .footer-newsletter,
+.footer-newsletter *,
+.footer-newsletter *::before,
+.footer-newsletter *::after {
+  box-sizing: border-box;
+}
+
+.footer-newsletter {
+  width: 100%;
+  max-width: 640px;
+  min-width: 0;
+  margin-inline: auto;
+  padding-inline: 16px;
+}
+
+.footer-description {
+  width: auto;
+  max-width: 100%;
+  margin: 0 0 24px;
+  color: #aaa;
+  font-size: 16px;
+  line-height: 1.7;
+  text-align: center;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.subscribe-form {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #333;
+  background: #0b0b0b;
+}
+
+.subscribe-form input {
+  flex: 1 1 0%;
+  width: 0;
+  min-width: 0;
+  margin: 0;
+  padding: 16px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #fff;
+  font: inherit;
+  font-size: 16px;
+}
+
+.subscribe-form input::placeholder {
+  color: #888;
+}
+
+.subscribe-form button {
+  display: grid;
+  place-items: center;
+  flex: 0 0 56px;
+  width: 56px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: #d6a328;
+  color: #fff;
+  cursor: pointer;
+}
+
+.subscribe-form input:focus-visible,
+.subscribe-form button:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: -3px;
+}
+
+.subscribe-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 360px) {
+  .footer-newsletter {
+    padding-inline: 12px;
+  }
+
+  .subscribe-form input {
+    padding-inline: 12px;
+  }
+
+  .subscribe-form button {
+    flex-basis: 48px;
+    width: 48px;
+  }
+}
+
 /* Reveal animation */
 .reveal{opacity:0;transform:translateY(40px);transition:opacity .8s ease,transform .8s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
