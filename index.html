@@ -336,10 +336,44 @@ footer{background:var(--black);color:var(--white);padding:80px 7% 30px}
     <div>
       <img src="trensio1.png" alt="Trensio">
       <p>Trensio — We rise by raising others. Empowering people through skills, technology, creativity and opportunity.</p>
-      <div class="subscribe-box">
-        <input type="email" id="subscribeEmail" placeholder="Enter your email">
-        <button id="subscribeBtn"><i class="fa-regular fa-paper-plane"></i></button>
-      </div>
+<div class="footer-newsletter">
+  <p class="footer-description">
+    Trensio — We rise by raising others. Empowering people through
+    skills, technology, creativity and opportunity.
+  </p>
+
+  <form class="subscribe-form" action="#" method="post">
+    <label class="subscribe-label" for="subscribe-email">
+      Email address
+    </label>
+
+    <input
+      id="subscribe-email"
+      name="email"
+      type="email"
+      placeholder="Enter your email"
+      autocomplete="email"
+      required
+    />
+
+    <button type="submit" aria-label="Subscribe">
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="m22 2-7 20-4-9-9-4Z" />
+        <path d="M22 2 11 13" />
+      </svg>
+    </button>
+  </form>
+</div>
     </div>
     <div>
       <h4>Quick Links</h4>
