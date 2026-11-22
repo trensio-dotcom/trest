@@ -1,0 +1,1906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Connect — Trensio</title>
+
+  <link rel="icon" type="image/jpeg" href="fav.jpg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
+
+  <style>
+    :root {
+      --black: #0b0b0b;
+      --gold: #e0a831;
+      --white: #fff;
+      --grey: #f4f4f4;
+      --border: #e7e7e7;
+      --muted: #666;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 96px;
+    }
+
+    body {
+      background: var(--white);
+      color: var(--black);
+      font-family: "Poppins", sans-serif;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    button,
+    a,
+    input,
+    select,
+    textarea {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--gold);
+      outline-offset: 4px;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    .container {
+      width: 86%;
+      max-width: 1200px;
+      margin-inline: auto;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* ---------- HEADER ---------- */
+
+    .site-header {
+      position: fixed;
+      inset: 0 0 auto;
+      height: 72px;
+      padding: 0 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      background: var(--white);
+      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
+      z-index: 1000;
+    }
+
+    .logo {
+      flex-shrink: 0;
+    }
+
+    .logo img {
+      height: 42px;
+      width: auto;
+    }
+
+    .desktop-nav {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+    }
+
+    .desktop-nav a {
+      position: relative;
+      padding: 6px 0;
+      font-size: 0.95rem;
+      font-weight: 500;
+      text-decoration: none;
+    }
+
+    .desktop-nav a::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--gold);
+      transition: width 0.3s;
+    }
+
+    .desktop-nav a:hover::after {
+      width: 100%;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .account-icon {
+      font-size: 1.25rem;
+      text-decoration: none;
+    }
+
+    .account-icon:hover {
+      color: #946600;
+    }
+
+    .connect-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 13px 30px;
+      background: var(--black);
+      color: var(--white);
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      letter-spacing: 0.5px;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      padding: 6px;
+      border: 0;
+      background: none;
+      cursor: pointer;
+    }
+
+    .hamburger span {
+      width: 24px;
+      height: 2px;
+      background: var(--black);
+    }
+
+    /* ---------- MOBILE MENU ---------- */
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.3s;
+      z-index: 1050;
+    }
+
+    .overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .mobile-sidebar {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 90%;
+      max-width: 360px;
+      height: 100vh;
+      height: 100dvh;
+      padding: 28px 26px;
+      background: var(--white);
+      box-shadow: -20px 0 50px rgba(0, 0, 0, 0.15);
+      overflow-y: auto;
+      transform: translateX(100%);
+      visibility: hidden;
+      transition: transform 0.35s, visibility 0.35s;
+      z-index: 1100;
+    }
+
+    .mobile-sidebar.open {
+      transform: translateX(0);
+      visibility: visible;
+    }
+
+    .close-menu {
+      display: block;
+      margin: 0 0 26px auto;
+      padding: 6px;
+      border: 0;
+      background: none;
+      font-size: 1.4rem;
+      cursor: pointer;
+    }
+
+    .mobile-sidebar nav {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .mobile-sidebar nav a {
+      padding: 15px 8px;
+      border-bottom: 1px solid #eee;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .mobile-sidebar nav a[aria-current="page"] {
+      color: #946600;
+    }
+
+    /* ---------- INTRO ---------- */
+
+    .page-intro {
+      position: relative;
+      padding: 148px 0 58px;
+      background: var(--grey);
+      text-align: center;
+    }
+
+    .page-intro::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 64px;
+      height: 3px;
+      background: var(--gold);
+      transform: translateX(-50%);
+    }
+
+    .eyebrow {
+      margin-bottom: 12px;
+      color: #946600;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .page-intro h1 {
+      font-size: clamp(2.5rem, 7vw, 4.5rem);
+      line-height: 1.15;
+      letter-spacing: -1.5px;
+    }
+
+    .intro-text {
+      max-width: 650px;
+      margin: 18px auto 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+      font-weight: 300;
+      line-height: 1.8;
+    }
+
+    /* ---------- SECTIONS ---------- */
+
+    .section {
+      padding-block: 68px;
+    }
+
+    .section-heading {
+      max-width: 700px;
+      margin-bottom: 30px;
+    }
+
+    .section-label {
+      margin-bottom: 10px;
+      color: #946600;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(1.7rem, 4vw, 2.4rem);
+      line-height: 1.25;
+      letter-spacing: -0.6px;
+    }
+
+    .section-heading p {
+      margin-top: 13px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 300;
+      line-height: 1.8;
+    }
+
+    /* ---------- CONTACT CARDS ---------- */
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+    }
+
+    .contact-card {
+      min-width: 0;
+      padding: 28px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--white);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .contact-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.06);
+    }
+
+    .contact-icon {
+      display: grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      margin-bottom: 21px;
+      border-radius: 8px;
+      background: #fbf3e1;
+      color: #946600;
+      font-size: 1.2rem;
+    }
+
+    .contact-card h3 {
+      margin-bottom: 10px;
+      font-size: 1.05rem;
+    }
+
+    .contact-card p {
+      color: var(--muted);
+      font-size: 0.85rem;
+      line-height: 1.8;
+    }
+
+    .contact-detail {
+      display: block;
+      width: fit-content;
+      max-width: 100%;
+      margin-top: 13px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      text-decoration: none;
+      overflow-wrap: anywhere;
+    }
+
+    a.contact-detail:hover {
+      color: #946600;
+    }
+
+    .secondary-number {
+      margin-top: 9px;
+    }
+
+    .small-note {
+      display: block;
+      margin-top: 8px;
+      color: #777;
+      font-size: 0.73rem;
+      line-height: 1.7;
+    }
+
+    .inline-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-top: 16px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .inline-link:hover {
+      color: #946600;
+    }
+
+    /* ---------- TEAM AND VOLUNTEERS ---------- */
+
+    .opportunities-section {
+      background: var(--grey);
+    }
+
+    .opportunity-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 26px;
+    }
+
+    .opportunity-card {
+      min-width: 0;
+      padding: 34px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--white);
+    }
+
+    .opportunity-card h3 {
+      margin-bottom: 13px;
+      font-size: 1.35rem;
+    }
+
+    .opportunity-card p {
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.8;
+    }
+
+    .opportunity-card ul {
+      display: grid;
+      gap: 10px;
+      margin: 21px 0 26px;
+      list-style: none;
+    }
+
+    .opportunity-card li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      color: #555;
+      font-size: 0.84rem;
+      line-height: 1.7;
+    }
+
+    .opportunity-card li i {
+      margin-top: 5px;
+      color: #946600;
+      font-size: 0.75rem;
+    }
+
+    .button {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      min-height: 44px;
+      padding: 13px 24px;
+      border: 1px solid var(--black);
+      background: var(--black);
+      color: var(--white);
+      font-size: 0.84rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s, border-color 0.3s;
+    }
+
+    .button:hover {
+      border-color: var(--gold);
+      background: var(--gold);
+      color: var(--black);
+    }
+
+    .button-gold {
+      border-color: var(--gold);
+      background: var(--gold);
+      color: var(--black);
+    }
+
+    .button-gold:hover {
+      border-color: var(--black);
+      background: var(--black);
+      color: var(--white);
+    }
+
+    .opportunities-note {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 0.78rem;
+      line-height: 1.8;
+    }
+
+    /* ---------- ENQUIRY FORM ---------- */
+
+    .enquiry-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+      align-items: start;
+      gap: 50px;
+    }
+
+    .enquiry-copy {
+      min-width: 0;
+    }
+
+    .enquiry-copy .section-heading {
+      margin-bottom: 22px;
+    }
+
+    .form-explanation {
+      padding: 18px;
+      border-left: 3px solid var(--gold);
+      background: var(--grey);
+      color: #666;
+      font-size: 0.82rem;
+      line-height: 1.8;
+    }
+
+    .enquiry-form {
+      min-width: 0;
+      padding: 30px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .field {
+      min-width: 0;
+    }
+
+    .field-full {
+      grid-column: 1 / -1;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .optional {
+      color: #777;
+      font-size: 0.73rem;
+      font-weight: 400;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      display: block;
+      width: 100%;
+      min-width: 0;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background: var(--white);
+      color: var(--black);
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .field input,
+    .field select {
+      min-height: 46px;
+    }
+
+    .field textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: #946600;
+    }
+
+    .form-help {
+      margin-top: 8px;
+      color: #777;
+      font-size: 0.74rem;
+      line-height: 1.7;
+    }
+
+    .form-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .form-actions .inline-link {
+      margin-top: 0;
+    }
+
+    .form-status {
+      margin-top: 15px;
+      color: #666;
+      font-size: 0.8rem;
+      line-height: 1.8;
+    }
+
+    .form-status:empty {
+      display: none;
+    }
+
+    /* ---------- MAP ---------- */
+
+    .map-section {
+      padding-top: 0;
+    }
+
+    .map-card {
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--grey);
+    }
+
+    .map-card iframe {
+      display: block;
+      width: 100%;
+      height: 400px;
+      border: 0;
+    }
+
+    .map-caption {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 24px 28px;
+    }
+
+    .map-caption h3 {
+      margin-bottom: 5px;
+      font-size: 1rem;
+    }
+
+    .map-caption p {
+      max-width: 660px;
+      color: #666;
+      font-size: 0.82rem;
+      line-height: 1.8;
+    }
+
+    .map-caption .inline-link {
+      margin-top: 0;
+    }
+
+    /* ---------- FOOTER ---------- */
+
+    footer {
+      padding: 54px 7% 24px;
+      background: var(--black);
+      color: var(--white);
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin-inline: auto;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns:
+        minmax(0, 1.4fr)
+        minmax(0, 1fr)
+        minmax(0, 1fr);
+      gap: 36px;
+      margin-bottom: 34px;
+    }
+
+    .footer-grid > div {
+      min-width: 0;
+    }
+
+    .footer-brand {
+      width: 100%;
+      max-width: 340px;
+    }
+
+    .footer-logo {
+      width: auto;
+      height: 46px;
+      margin-bottom: 16px;
+      object-fit: contain;
+    }
+
+    .footer-description {
+      width: 100%;
+      color: #aaa;
+      font-size: 0.875rem;
+      font-weight: 300;
+      line-height: 1.75;
+      overflow-wrap: anywhere;
+    }
+
+    .footer-grid h4 {
+      margin-bottom: 15px;
+      font-size: 0.95rem;
+      letter-spacing: 1px;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li + li {
+      margin-top: 10px;
+    }
+
+    .footer-links a {
+      color: #aaa;
+      font-size: 0.85rem;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: var(--gold);
+    }
+
+    /* ---------- FOOTER SUBSCRIPTION ---------- */
+
+    .footer-newsletter {
+      width: 100%;
+      min-width: 0;
+      margin-top: 18px;
+      padding: 0;
+    }
+
+    .subscribe-form {
+      position: relative;
+      display: flex;
+      align-items: stretch;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      height: 44px;
+      margin: 0;
+      padding: 0;
+      border: 1px solid #333;
+      background: var(--black);
+    }
+
+    .subscribe-form input {
+      flex: 1 1 0%;
+      width: 0;
+      min-width: 0;
+      height: 100%;
+      margin: 0;
+      padding: 0 12px;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      color: var(--white);
+      font-family: inherit;
+      font-size: 16px;
+      line-height: normal;
+    }
+
+    .subscribe-form input::placeholder {
+      color: #888;
+      opacity: 1;
+    }
+
+    .subscribe-form button {
+      display: grid;
+      place-items: center;
+      flex: 0 0 46px;
+      width: 46px;
+      min-width: 0;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: var(--gold);
+      color: var(--white);
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .subscribe-form button svg {
+      display: block;
+      width: 20px;
+      height: 20px;
+    }
+
+    .subscribe-form button:hover {
+      background: var(--white);
+      color: var(--black);
+    }
+
+    .subscribe-form input:focus-visible,
+    .subscribe-form button:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: -3px;
+    }
+
+    .subscribe-message {
+      margin-top: 10px;
+      color: #aaa;
+      font-size: 0.76rem;
+      line-height: 1.7;
+      overflow-wrap: anywhere;
+    }
+
+    .subscribe-message:empty {
+      display: none;
+    }
+
+    /* ---------- SOCIAL LINKS ---------- */
+
+    .social-icons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .social-icons a {
+      display: grid;
+      place-items: center;
+      flex: 0 0 38px;
+      width: 38px;
+      height: 38px;
+      border: 1px solid #333;
+      color: #aaa;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .social-icons a:hover {
+      border-color: var(--gold);
+      background: var(--gold);
+      color: var(--black);
+      transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding-top: 22px;
+      border-top: 1px solid #222;
+      color: #777;
+      font-size: 0.8rem;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+
+    @media (max-width: 960px) {
+      .desktop-nav {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .contact-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .contact-card:last-child {
+        grid-column: 1 / -1;
+      }
+
+      .enquiry-layout {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 28px;
+      }
+
+      .footer-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 30px;
+        text-align: center;
+      }
+
+      .footer-brand {
+        margin-inline: auto;
+      }
+
+      .footer-logo {
+        margin-inline: auto;
+      }
+
+      .social-icons {
+        justify-content: center;
+      }
+
+      .footer-bottom {
+        justify-content: center;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header {
+        gap: 12px;
+      }
+
+      .logo img {
+        height: 34px;
+      }
+
+      .header-right {
+        gap: 12px;
+      }
+
+      .connect-link {
+        padding: 11px 18px;
+        font-size: 0.8rem;
+      }
+
+      .page-intro {
+        padding: 124px 0 42px;
+      }
+
+      .intro-text {
+        font-size: 0.85rem;
+      }
+
+      .section {
+        padding-block: 45px;
+      }
+
+      .contact-grid,
+      .opportunity-grid,
+      .form-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .contact-card:last-child {
+        grid-column: auto;
+      }
+
+      .contact-card,
+      .opportunity-card {
+        padding: 25px;
+      }
+
+      .enquiry-form {
+        padding: 22px 18px;
+      }
+
+      .form-grid {
+        gap: 18px;
+      }
+
+      .form-actions .button {
+        width: 100%;
+      }
+
+      .map-section {
+        padding-top: 0;
+      }
+
+      .map-card iframe {
+        height: 300px;
+      }
+
+      .map-caption {
+        padding: 21px;
+      }
+
+      footer {
+        padding-top: 44px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .logo img {
+        height: 30px;
+      }
+
+      .header-right {
+        gap: 9px;
+      }
+
+      .connect-link {
+        padding: 10px 12px;
+        font-size: 0.75rem;
+      }
+
+      .account-icon {
+        font-size: 1.15rem;
+      }
+
+      .hamburger {
+        padding: 4px;
+      }
+
+      .hamburger span {
+        width: 22px;
+      }
+
+      .subscribe-form input {
+        padding-inline: 10px;
+      }
+
+      .subscribe-form button {
+        flex-basis: 42px;
+        width: 42px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header class="site-header">
+    <a href="index.html" class="logo" aria-label="Trensio home">
+      <img src="trensio.png" alt="Trensio" />
+    </a>
+
+    <nav class="desktop-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="index.html#updates">Updates</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="index.html#about">About</a>
+    </nav>
+
+    <div class="header-right">
+      <a
+        href="sign-form.html"
+        class="account-icon"
+        aria-label="Your account"
+      >
+        <i class="fa-regular fa-circle-user" aria-hidden="true"></i>
+      </a>
+
+      <a
+        href="connect.html"
+        class="connect-link"
+        aria-current="page"
+      >
+        Connect
+      </a>
+
+      <button
+        type="button"
+        class="hamburger"
+        id="hamburger"
+        aria-label="Open navigation"
+        aria-controls="mobileSidebar"
+        aria-expanded="false"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- MOBILE NAVIGATION -->
+  <div class="overlay" id="overlay"></div>
+
+  <aside
+    class="mobile-sidebar"
+    id="mobileSidebar"
+    aria-label="Mobile navigation"
+    aria-hidden="true"
+    inert
+  >
+    <button
+      type="button"
+      class="close-menu"
+      id="closeMenu"
+      aria-label="Close navigation"
+    >
+      <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+    </button>
+
+    <nav aria-label="Mobile main navigation">
+      <a href="index.html">Home</a>
+      <a href="index.html#updates">Updates</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="index.html#about">About</a>
+      <a href="connect.html" aria-current="page">Connect</a>
+      <a href="admin-login.html">Administrator</a>
+    </nav>
+  </aside>
+
+  <main>
+    <!-- PAGE INTRO -->
+    <section class="page-intro" aria-labelledby="pageTitle">
+      <div class="container">
+        <p class="eyebrow">Start a Conversation</p>
+
+        <h1 id="pageTitle">Connect With Us</h1>
+
+        <p class="intro-text">
+          Have a project in mind, a question to ask, or a desire to
+          make a difference? Connect with Trensio and explore how
+          we can rise together.
+        </p>
+      </div>
+    </section>
+
+    <!-- CONTACT DETAILS -->
+    <section class="section" aria-labelledby="contactTitle">
+      <div class="container">
+        <div class="section-heading">
+          <div class="section-label">Get in Touch</div>
+
+          <h2 id="contactTitle">
+            Let’s start with a conversation.
+          </h2>
+
+          <p>
+            Reach out about graphic design, websites, training,
+            collaboration, joining our team or volunteering.
+          </p>
+        </div>
+
+        <div class="contact-grid">
+          <!-- EMAIL -->
+          <article class="contact-card">
+            <div class="contact-icon">
+              <i
+                class="fa-regular fa-envelope"
+                aria-hidden="true"
+              ></i>
+            </div>
+
+            <h3>Email Us</h3>
+
+            <p>
+              Send your questions, project ideas or expressions
+              of interest by email.
+            </p>
+
+            <a
+              class="contact-detail"
+              id="emailLink"
+              hidden
+            ></a>
+
+            <span class="small-note" id="emailSetupNote">
+              Our email address will be added here soon.
+              Please call us in the meantime.
+            </span>
+
+            <a href="#enquiry" class="inline-link">
+              Prepare an enquiry
+              <i
+                class="fa-solid fa-arrow-right"
+                aria-hidden="true"
+              ></i>
+            </a>
+          </article>
+
+          <!-- PHONE -->
+          <article class="contact-card">
+            <div class="contact-icon">
+              <i class="fa-solid fa-phone" aria-hidden="true"></i>
+            </div>
+
+            <h3>Call Us</h3>
+
+            <p>
+              Prefer to speak directly? Contact us using the
+              phone details below.
+            </p>
+
+            <a href="tel:+265995985007" class="contact-detail">
+              +265 995 985 007
+            </a>
+
+            <!-- Confirm this number before adding a clickable link. -->
+            <span class="contact-detail secondary-number">
+              +265 880 301 866
+            </span>
+          </article>
+
+          <!-- LOCATION -->
+          <article class="contact-card">
+            <div class="contact-icon">
+              <i
+                class="fa-solid fa-location-dot"
+                aria-hidden="true"
+              ></i>
+            </div>
+
+            <h3>Our Area</h3>
+
+            <p>Chipoka, Salima, Malawi.</p>
+
+            <span class="small-note">
+              The map shows the Chipoka area. Please contact us
+              to confirm an exact meeting point before travelling.
+            </span>
+
+            <a href="#location" class="inline-link">
+              View the map
+              <i
+                class="fa-solid fa-arrow-right"
+                aria-hidden="true"
+              ></i>
+            </a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEAM AND VOLUNTEERS -->
+    <section
+      class="section opportunities-section"
+      aria-labelledby="opportunitiesTitle"
+    >
+      <div class="container">
+        <div class="section-heading">
+          <div class="section-label">Rise With Us</div>
+
+          <h2 id="opportunitiesTitle">
+            Bring your skills. Share your purpose.
+          </h2>
+
+          <p>
+            Tell us how you would like to contribute, whether by
+            joining the team or giving your time as a volunteer.
+          </p>
+        </div>
+
+        <div class="opportunity-grid">
+          <article class="opportunity-card">
+            <div class="contact-icon">
+              <i class="fa-solid fa-users" aria-hidden="true"></i>
+            </div>
+
+            <h3>Join the Team</h3>
+
+            <p>
+              Interested in growing with Trensio? Introduce yourself
+              and tell us about your skills, experience and the kind
+              of work you would like to do.
+            </p>
+
+            <ul>
+              <li>
+                <i class="fa-solid fa-check" aria-hidden="true"></i>
+                Graphic design and creative work
+              </li>
+
+              <li>
+                <i class="fa-solid fa-check" aria-hidden="true"></i>
+                Web design and development
+              </li>
+
+              <li>
+                <i class="fa-solid fa-check" aria-hidden="true"></i>
+                Training, communication and coordination
+              </li>
+            </ul>
+
+            <a
+              href="#enquiry"
+              class="button"
+              data-interest="Join the Team"
+            >
+              Express Interest
+              <i
+                class="fa-solid fa-arrow-right"
+                aria-hidden="true"
+              ></i>
+            </a>
+          </article>
+
+          <article class="opportunity-card">
+            <div class="contact-icon">
+              <i
+                class="fa-solid fa-hand-holding-heart"
+                aria-hidden="true"
+              ></i>
+            </div>
+
+            <h3>Become a Volunteer</h3>
+
+            <p>
+              Want to help others rise? Tell us how you would like
+              to share your time, knowledge or practical skills.
+            </p>
+
+            <ul>
+              <li>
+                <i class="fa-solid fa-check" aria-hidden="true"></i>
+                Support learning and skills sharing
+              </li>
+
+              <li>
+                <i class="fa-solid fa-check" aria-hidden="true"></i>
+                Help with community activities and events
+              </li>
+
+              <li>
+                <i class="fa-solid fa-check" aria-hidden="true"></i>
+                Contribute creative or digital skills
+              </li>
+            </ul>
+
+            <a
+              href="#enquiry"
+              class="button button-gold"
+              data-interest="Volunteer"
+            >
+              Volunteer With Us
+              <i
+                class="fa-solid fa-arrow-right"
+                aria-hidden="true"
+              ></i>
+            </a>
+          </article>
+        </div>
+
+        <p class="opportunities-note">
+          These are expressions of interest, not advertised vacancies
+          or guarantees of placement. Please contact us to discuss
+          current opportunities.
+        </p>
+      </div>
+    </section>
+
+    <!-- ENQUIRY FORM -->
+    <section
+      class="section"
+      id="enquiry"
+      aria-labelledby="enquiryTitle"
+    >
+      <div class="container enquiry-layout">
+        <div class="enquiry-copy">
+          <div class="section-heading">
+            <div class="section-label">Your Next Step</div>
+
+            <h2 id="enquiryTitle">
+              Tell us how you’d like to connect.
+            </h2>
+
+            <p>
+              Share a little about yourself and what you have in mind.
+              For team or volunteer enquiries, include your skills
+              and availability.
+            </p>
+          </div>
+
+          <p class="form-explanation" id="formExplanation">
+            This form prepares an email in your email application.
+            It does not send or store your details on this website.
+            You will need to review and send the email yourself.
+          </p>
+        </div>
+
+        <form
+          class="enquiry-form"
+          id="enquiryForm"
+          aria-describedby="formExplanation"
+        >
+          <div class="form-grid">
+            <div class="field">
+              <label for="fullName">Full name</label>
+
+              <input
+                type="text"
+                id="fullName"
+                name="fullName"
+                autocomplete="name"
+                maxlength="100"
+                required
+              />
+            </div>
+
+            <div class="field">
+              <label for="replyEmail">Email address</label>
+
+              <input
+                type="email"
+                id="replyEmail"
+                name="replyEmail"
+                autocomplete="email"
+                maxlength="200"
+                required
+              />
+            </div>
+
+            <div class="field">
+              <label for="phone">
+                Phone number
+                <span class="optional">(optional)</span>
+              </label>
+
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                autocomplete="tel"
+                maxlength="40"
+              />
+            </div>
+
+            <div class="field">
+              <label for="interest">I would like to</label>
+
+              <select id="interest" name="interest" required>
+                <option value="">Choose an option</option>
+
+                <option value="General Enquiry">
+                  Make a general enquiry
+                </option>
+
+                <option value="Graphic Design">
+                  Discuss graphic design
+                </option>
+
+                <option value="Website Project">
+                  Discuss a website project
+                </option>
+
+                <option value="Training">
+                  Ask about training
+                </option>
+
+                <option value="Join the Team">
+                  Join the team
+                </option>
+
+                <option value="Volunteer">
+                  Become a volunteer
+                </option>
+
+                <option value="Partnership">
+                  Discuss a partnership
+                </option>
+              </select>
+            </div>
+
+            <div class="field field-full">
+              <label for="message">Your message</label>
+
+              <textarea
+                id="message"
+                name="message"
+                maxlength="2000"
+                placeholder="Tell us about your project, question, skills or availability..."
+                aria-describedby="messageHelp"
+                required
+              ></textarea>
+
+              <p class="form-help" id="messageHelp">
+                Please do not include passwords, financial details
+                or identity documents.
+              </p>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="button">
+              Open Email Draft
+              <i
+                class="fa-regular fa-envelope"
+                aria-hidden="true"
+              ></i>
+            </button>
+
+            <a href="tel:+265995985007" class="inline-link">
+              Call instead
+              <i class="fa-solid fa-phone" aria-hidden="true"></i>
+            </a>
+          </div>
+
+          <p
+            class="form-status"
+            id="formStatus"
+            role="status"
+            aria-live="polite"
+          ></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- MAP -->
+    <section
+      class="section map-section"
+      id="location"
+      aria-labelledby="locationTitle"
+    >
+      <div class="container">
+        <div class="section-heading">
+          <div class="section-label">Find the Area</div>
+
+          <h2 id="locationTitle">Chipoka, Salima</h2>
+
+          <p>
+            Explore the Chipoka area on the map below.
+            Contact us before visiting to arrange a meeting point.
+          </p>
+        </div>
+
+        <div class="map-card">
+          <iframe
+            title="Map of Chipoka, Salima, Malawi"
+            src="https://maps.google.com/maps?q=Chipoka%2C%20Salima%2C%20Malawi&z=13&output=embed"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen
+          ></iframe>
+
+          <div class="map-caption">
+            <div>
+              <h3>
+                <i
+                  class="fa-solid fa-location-dot"
+                  aria-hidden="true"
+                ></i>
+                Chipoka, Salima, Malawi
+              </h3>
+
+              <p>
+                General area map only. This is not a confirmed
+                Trensio office pin.
+              </p>
+            </div>
+
+            <a
+              href="https://www.google.com/maps/search/?api=1&query=Chipoka%2C%20Salima%2C%20Malawi"
+              class="inline-link"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Open in Google Maps
+              <i
+                class="fa-solid fa-arrow-up-right-from-square"
+                aria-hidden="true"
+              ></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER WITH SUBSCRIPTION INPUT -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img
+            src="trensio1.png"
+            alt="Trensio"
+            class="footer-logo"
+            loading="lazy"
+          />
+
+          <p class="footer-description">
+            Trensio — We rise by raising others. Empowering people
+            through skills, technology, creativity and opportunity.
+          </p>
+
+          <div class="footer-newsletter">
+            <form class="subscribe-form" id="subscribeForm">
+              <label class="sr-only" for="subscribeEmail">
+                Email address for updates
+              </label>
+
+              <input
+                type="email"
+                id="subscribeEmail"
+                name="email"
+                placeholder="Enter your email"
+                autocomplete="email"
+                aria-describedby="subscribeMessage"
+                required
+              />
+
+              <button type="submit" aria-label="Subscribe to updates">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="m22 2-7 20-4-9-9-4Z" />
+                  <path d="M22 2 11 13" />
+                </svg>
+              </button>
+            </form>
+
+            <p
+              class="subscribe-message"
+              id="subscribeMessage"
+              role="status"
+              aria-live="polite"
+            ></p>
+          </div>
+        </div>
+
+        <div>
+          <h4>Quick Links</h4>
+
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="portfolio.html">Portfolio</a></li>
+            <li><a href="index.html#updates">Updates</a></li>
+            <li><a href="connect.html">Connect</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4>Follow Us</h4>
+
+          <div class="social-icons">
+            <a
+              href="https://www.facebook.com/profile.php?id=61586705475922"
+              aria-label="Facebook"
+            >
+              <i
+                class="fa-brands fa-facebook-f"
+                aria-hidden="true"
+              ></i>
+            </a>
+
+            <a href="https://signal.org/install" aria-label="Signal">
+              <i class="fa-solid fa-comment" aria-hidden="true"></i>
+            </a>
+
+            <a
+              href="https://www.linkedin.com/in/emmanuel-kamtima-0aa91b33a"
+              aria-label="LinkedIn"
+            >
+              <i
+                class="fa-brands fa-linkedin-in"
+                aria-hidden="true"
+              ></i>
+            </a>
+
+            <a
+              href="https://www.tiktok.com/@emmanuelkamtima"
+              aria-label="TikTok"
+            >
+              <i class="fa-brands fa-tiktok" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 Trensio. All rights reserved.</span>
+        <span>We Rise by Raising Others</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ---------- EMAIL CONFIGURATION ---------- */
+
+    // Replace this placeholder with your real public email.
+    const CONTACT_EMAIL = "emmanuelkamtima4@gmail.com";
+
+    const emailConfigured =
+      CONTACT_EMAIL !== "YOUR_EMAIL@example.com" &&
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(CONTACT_EMAIL);
+
+    const emailLink = document.getElementById("emailLink");
+    const emailSetupNote = document.getElementById("emailSetupNote");
+
+    if (emailConfigured) {
+      emailLink.textContent = CONTACT_EMAIL;
+      emailLink.href = `mailto:${CONTACT_EMAIL}`;
+      emailLink.hidden = false;
+      emailSetupNote.hidden = true;
+    }
+
+    /* ---------- ENQUIRY FORM ---------- */
+
+    const enquiryForm = document.getElementById("enquiryForm");
+    const fullNameInput = document.getElementById("fullName");
+    const replyEmailInput = document.getElementById("replyEmail");
+    const phoneInput = document.getElementById("phone");
+    const interestSelect = document.getElementById("interest");
+    const messageInput = document.getElementById("message");
+    const formStatus = document.getElementById("formStatus");
+
+    document.querySelectorAll("[data-interest]").forEach((link) => {
+      link.addEventListener("click", () => {
+        interestSelect.value = link.dataset.interest;
+        formStatus.textContent = "";
+      });
+    });
+
+    enquiryForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      fullNameInput.value = fullNameInput.value.trim();
+      replyEmailInput.value = replyEmailInput.value.trim();
+      messageInput.value = messageInput.value.trim();
+
+      if (!enquiryForm.reportValidity()) return;
+
+      if (!emailConfigured) {
+        formStatus.textContent =
+          "Email enquiries are not configured yet. " +
+          "Please call +265 995 985 007. " +
+          "Your details have not been sent or saved.";
+        return;
+      }
+
+      const subject =
+        `Trensio Enquiry — ${interestSelect.value}`;
+
+      const body = [
+        "Hello Trensio,",
+        "",
+        `Name: ${fullNameInput.value}`,
+        `Email: ${replyEmailInput.value}`,
+        `Phone: ${phoneInput.value.trim() || "Not provided"}`,
+        `Interest: ${interestSelect.value}`,
+        "",
+        "Message:",
+        messageInput.value,
+        "",
+        "Thank you."
+      ].join("\n");
+
+      const mailtoUrl =
+        `mailto:${CONTACT_EMAIL}` +
+        `?subject=${encodeURIComponent(subject)}` +
+        `&body=${encodeURIComponent(body)}`;
+
+      formStatus.textContent =
+        "An email draft has been requested in your email application. " +
+        "Review it and press Send there. " +
+        "If no application opens, call us or email us directly. " +
+        "This website has not sent or saved your enquiry.";
+
+      window.location.href = mailtoUrl;
+    });
+
+    enquiryForm.addEventListener("input", () => {
+      formStatus.textContent = "";
+    });
+
+    /* ---------- FOOTER SUBSCRIPTION ---------- */
+
+    // Display-only demo until a subscription backend is connected.
+    const subscribeForm = document.getElementById("subscribeForm");
+    const subscribeEmail = document.getElementById("subscribeEmail");
+    const subscribeMessage = document.getElementById("subscribeMessage");
+
+    subscribeForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      subscribeEmail.value = subscribeEmail.value.trim();
+
+      if (!subscribeForm.reportValidity()) return;
+
+      subscribeMessage.textContent =
+        "Subscriptions are not available yet. " +
+        "Your email has not been saved.";
+    });
+
+    subscribeEmail.addEventListener("input", () => {
+      subscribeMessage.textContent = "";
+    });
+
+    /* ---------- MOBILE NAVIGATION ---------- */
+
+    const sidebar = document.getElementById("mobileSidebar");
+    const overlay = document.getElementById("overlay");
+    const hamburger = document.getElementById("hamburger");
+    const closeMenuButton = document.getElementById("closeMenu");
+
+    let previousBodyOverflow = "";
+
+    function openMenu() {
+      previousBodyOverflow = document.body.style.overflow;
+
+      sidebar.inert = false;
+      sidebar.setAttribute("aria-hidden", "false");
+      sidebar.classList.add("open");
+
+      overlay.classList.add("show");
+      hamburger.setAttribute("aria-expanded", "true");
+
+      document.body.style.overflow = "hidden";
+      closeMenuButton.focus();
+    }
+
+    function closeMenu() {
+      if (!sidebar.classList.contains("open")) return;
+
+      hamburger.focus();
+
+      sidebar.classList.remove("open");
+      sidebar.setAttribute("aria-hidden", "true");
+      sidebar.inert = true;
+
+      overlay.classList.remove("show");
+      hamburger.setAttribute("aria-expanded", "false");
+
+      document.body.style.overflow = previousBodyOverflow;
+    }
+
+    hamburger.addEventListener("click", openMenu);
+    closeMenuButton.addEventListener("click", closeMenu);
+    overlay.addEventListener("click", closeMenu);
+
+    sidebar.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", closeMenu);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (!sidebar.classList.contains("open")) return;
+
+      if (event.key === "Escape") {
+        closeMenu();
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+
+      const focusableItems = Array.from(
+        sidebar.querySelectorAll(
+          "a[href], button:not([disabled])"
+        )
+      ).filter((element) => element.getClientRects().length > 0);
+
+      const firstItem = focusableItems[0];
+      const lastItem = focusableItems[focusableItems.length - 1];
+
+      if (event.shiftKey && document.activeElement === firstItem) {
+        event.preventDefault();
+        lastItem.focus();
+      } else if (
+        !event.shiftKey &&
+        document.activeElement === lastItem
+      ) {
+        event.preventDefault();
+        firstItem.focus();
+      }
+    });
+
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 960) {
+        closeMenu();
+      }
+    });
+  </script>
+</body>
+</html>
