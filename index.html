@@ -8,10 +8,12 @@
 
   <link rel="icon" type="image/jpeg" href="fav.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
+
   <link
     href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
     rel="stylesheet"
   />
+
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
@@ -37,7 +39,7 @@
 
     html {
       scroll-behavior: smooth;
-      scroll-padding-top: 72px;
+      scroll-padding-top: 90px;
     }
 
     body {
@@ -48,17 +50,33 @@
 
     button,
     input {
-      font-family: inherit;
+      font: inherit;
     }
 
     img {
+      display: block;
       max-width: 100%;
     }
 
-    button,
-    a,
-    input {
-      -webkit-tap-highlight-color: transparent;
+    a {
+      color: inherit;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--gold);
+      outline-offset: 4px;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+      border: 0;
     }
 
     /* ---------- HEADER ---------- */
@@ -73,6 +91,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 16px;
       padding: 0 5%;
       z-index: 1000;
       box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
@@ -85,7 +104,6 @@
     .logo img {
       height: 42px;
       width: auto;
-      display: block;
     }
 
     nav.desktop {
@@ -126,7 +144,6 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      cursor: pointer;
     }
 
     .dropdown-toggle i {
@@ -168,7 +185,7 @@
       border-bottom: 1px solid #f0f0f0;
     }
 
-    .dropdown-menu a:last-child {
+    nav.desktop .dropdown-menu a:last-child {
       border: none;
     }
 
@@ -195,22 +212,18 @@
     }
 
     .btn-connect {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       background: var(--black);
       color: var(--white);
       border: none;
       padding: 13px 30px;
       font-weight: 600;
       font-size: 0.9rem;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
+      text-decoration: none;
       letter-spacing: 0.5px;
       transition: background 0.3s, color 0.3s;
-    }
-
-    .btn-connect span {
-      position: relative;
-      z-index: 2;
     }
 
     .btn-connect:hover {
@@ -233,7 +246,6 @@
       height: 1.6px;
       background: var(--black);
       display: block;
-      transition: 0.3s;
     }
 
     /* ---------- MOBILE SIDEBAR ---------- */
@@ -250,9 +262,7 @@
       z-index: 1100;
       transform: translateX(100%);
       visibility: hidden;
-      transition:
-        transform 0.4s cubic-bezier(0.77, 0, 0.18, 1),
-        visibility 0.4s;
+      transition: transform 0.4s, visibility 0.4s;
       padding: 28px 26px;
       display: flex;
       flex-direction: column;
@@ -265,7 +275,7 @@
       visibility: visible;
     }
 
-    .mobile-sidebar .close-btn {
+    .close-btn {
       align-self: flex-end;
       background: none;
       border: none;
@@ -394,6 +404,7 @@
     .btn {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 10px;
       padding: 15px 34px;
       font-weight: 600;
@@ -418,7 +429,7 @@
       background: var(--white);
       transform: scaleX(0);
       transform-origin: left;
-      transition: transform 0.35s cubic-bezier(0.77, 0, 0.18, 1);
+      transition: transform 0.35s;
     }
 
     .btn-explore:hover::before {
@@ -570,7 +581,6 @@
     }
 
     .about-visual {
-      position: relative;
       width: 100%;
       height: 100%;
       min-height: 420px;
@@ -579,7 +589,7 @@
       overflow: hidden;
     }
 
-    /* ---------- PORTFOLIO ---------- */
+    /* ---------- ORIGINAL PORTFOLIO ARRANGEMENT ---------- */
 
     .portfolio-section {
       background: var(--grey);
@@ -604,24 +614,22 @@
     }
 
     .p-item {
+      display: block;
       position: relative;
+      min-width: 0;
       overflow: hidden;
-      cursor: pointer;
       border-radius: 10px;
+      color: var(--black);
+      text-decoration: none;
+      background: #ddd;
     }
 
     .p-item img {
-      display: block;
       width: 100%;
       height: 100%;
       object-fit: cover;
       object-position: center;
-      border-radius: 10px;
       transition: transform 0.5s;
-    }
-
-    .p-item:hover img {
-      transform: scale(1.08);
     }
 
     .p-item::after {
@@ -629,12 +637,17 @@
       position: absolute;
       inset: 0;
       background: rgba(0, 0, 0, 0);
-      transition: 0.4s;
+      transition: background 0.35s;
       pointer-events: none;
     }
 
+    .p-item:hover img,
+    .p-item:focus-visible img {
+      transform: scale(1.08);
+    }
+
     .p-item:hover::after,
-    .p-item:focus-within::after {
+    .p-item:focus-visible::after {
       background: rgba(0, 0, 0, 0.45);
     }
 
@@ -642,44 +655,64 @@
       position: absolute;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%) scale(0.8);
-      opacity: 0;
-      background: var(--white);
-      color: var(--black);
-      border: none;
-      padding: 10px 22px;
-      font-weight: 600;
-      font-size: 0.8rem;
-      cursor: pointer;
-      transition: 0.35s;
       z-index: 2;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 8px;
+      padding: 10px 22px;
+      background: var(--white);
+      color: var(--black);
+      font-size: 0.8rem;
+      font-weight: 600;
+      white-space: nowrap;
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.8);
+      transition: opacity 0.35s, transform 0.35s;
+      pointer-events: none;
     }
 
     .p-item:hover .visit,
-    .p-item:focus-within .visit {
+    .p-item:focus-visible .visit {
       opacity: 1;
       transform: translate(-50%, -50%) scale(1);
     }
 
+    /* Large left image */
     .p1 {
-      grid-column: span 2;
-      grid-row: span 2;
+      grid-column: 1 / 3;
+      grid-row: 1 / 3;
     }
 
-    .p2,
-    .p3,
-    .p4,
+    /* Two stacked images on the right */
+    .p2 {
+      grid-column: 3 / 5;
+      grid-row: 1 / 2;
+    }
+
+    .p3 {
+      grid-column: 3 / 5;
+      grid-row: 2 / 3;
+    }
+
+    /* Two images side by side below */
+    .p4 {
+      grid-column: 1 / 3;
+      grid-row: 3 / 4;
+    }
+
     .p5 {
-      grid-column: span 2;
-      grid-row: span 1;
+      grid-column: 3 / 5;
+      grid-row: 3 / 4;
     }
 
+    /* Full-width image at the bottom */
     .p6 {
-      grid-column: span 4;
-      grid-row: span 1;
+      grid-column: 1 / 5;
+      grid-row: 4 / 5;
+    }
+
+    .view-projects {
+      margin-top: 28px;
     }
 
     /* ---------- PARTNERS ---------- */
@@ -691,18 +724,18 @@
     }
 
     .partners .marquee-track {
-      animation-duration: 22s;
       align-items: center;
+      animation-duration: 22s;
     }
 
     .partners img {
       flex-shrink: 0;
+      height: 38px;
       width: auto;
       max-width: none;
-      height: 38px;
-      opacity: 0.85;
-      transition: 0.3s;
       margin-inline: 34px;
+      opacity: 0.85;
+      transition: opacity 0.3s;
     }
 
     .partners img:hover {
@@ -776,6 +809,11 @@
       gap: 14px;
     }
 
+    .updates-more {
+      margin-top: 30px;
+      text-align: center;
+    }
+
     /* ---------- FOOTER ---------- */
 
     footer {
@@ -803,21 +841,18 @@
     }
 
     .footer-logo {
-      display: block;
       width: auto;
-      max-width: 100%;
       height: 46px;
-      object-fit: contain;
       margin-bottom: 16px;
+      object-fit: contain;
     }
 
     .footer-description {
       width: 100%;
-      margin: 0;
       color: #aaa;
       font-size: 0.875rem;
-      font-weight: 300;
       line-height: 1.75;
+      font-weight: 300;
       overflow-wrap: anywhere;
     }
 
@@ -850,13 +885,12 @@
       color: var(--gold);
     }
 
-    /* ---------- SUBSCRIPTION ---------- */
+    /* ---------- SUBSCRIBE ---------- */
 
     .footer-newsletter {
       width: 100%;
       min-width: 0;
       margin-top: 18px;
-      padding: 0;
     }
 
     .subscribe-form {
@@ -867,8 +901,6 @@
       max-width: 100%;
       min-width: 0;
       height: 44px;
-      margin: 0;
-      padding: 0;
       border: 1px solid #333;
       background: var(--black);
     }
@@ -878,15 +910,12 @@
       width: 0;
       min-width: 0;
       height: 100%;
-      margin: 0;
       padding: 0 12px;
-      border: none;
+      border: 0;
       border-radius: 0;
       background: transparent;
       color: var(--white);
-      font-family: inherit;
       font-size: 16px;
-      line-height: normal;
     }
 
     .subscribe-form input::placeholder {
@@ -900,10 +929,8 @@
       flex: 0 0 46px;
       width: 46px;
       min-width: 0;
-      height: 100%;
-      margin: 0;
       padding: 0;
-      border: none;
+      border: 0;
       border-radius: 0;
       background: var(--gold);
       color: var(--white);
@@ -911,40 +938,50 @@
       transition: background 0.3s, color 0.3s;
     }
 
-    .subscribe-form button svg {
-      display: block;
-      width: 20px;
-      height: 20px;
-    }
-
     .subscribe-form button:hover {
       background: var(--white);
       color: var(--black);
     }
 
-    .subscribe-form input:focus-visible,
-    .subscribe-form button:focus-visible {
-      outline: 2px solid var(--gold);
+    .subscribe-form button svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .subscribe-form :focus-visible {
       outline-offset: -3px;
     }
 
-    .subscribe-label {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip-path: inset(50%);
-      white-space: nowrap;
-      border: 0;
+    .subscribe-consent {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-top: 12px;
+      color: #aaa;
+      font-size: 0.73rem;
+      line-height: 1.7;
+      text-align: left;
+      cursor: pointer;
     }
 
+    .subscribe-consent input {
+      flex: 0 0 16px;
+      width: 16px;
+      height: 16px;
+      margin-top: 3px;
+      accent-color: var(--gold);
+    }
+
+    .subscribe-consent span {
+      min-width: 0;
+    }
+
+    .subscribe-help,
     .subscribe-message {
-      margin-top: 10px;
-      color: #aaa;
-      font-size: 0.78rem;
-      line-height: 1.6;
+      margin-top: 8px;
+      color: #888;
+      font-size: 0.7rem;
+      line-height: 1.7;
     }
 
     .subscribe-message:empty {
@@ -992,7 +1029,7 @@
       font-size: 0.82rem;
     }
 
-    /* ---------- REVEAL ANIMATION ---------- */
+    /* ---------- REVEAL ---------- */
 
     .js .reveal {
       opacity: 0;
@@ -1027,46 +1064,36 @@
         min-height: 300px;
       }
 
-      section {
-        padding: 70px 7%;
-      }
-
-      .hero {
-        padding: 120px 7% 80px;
-      }
-
-      footer {
-        padding: 48px 7% 24px;
-      }
-
       .footer-grid {
         grid-template-columns: minmax(0, 1fr);
         gap: 30px;
-        margin-bottom: 30px;
         text-align: center;
       }
 
-      .footer-brand {
-        margin-inline: auto;
-      }
-
+      .footer-brand,
       .footer-logo {
         margin-inline: auto;
       }
 
-      .footer-grid ul {
-        padding: 0;
+      .footer-bottom {
+        justify-content: center;
+        text-align: center;
       }
 
       .social-icons {
         justify-content: center;
       }
 
-      .footer-bottom {
-        justify-content: center;
-        padding-top: 20px;
-        gap: 8px;
-        text-align: center;
+      footer {
+        padding: 48px 7% 24px;
+      }
+
+      section {
+        padding: 70px 7%;
+      }
+
+      .hero {
+        padding: 120px 7% 80px;
       }
     }
 
@@ -1088,7 +1115,9 @@
         font-size: 0.8rem;
       }
 
+      /* Keep the original collage on mobile too */
       .portfolio-images {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
         grid-auto-rows: 110px;
         gap: 10px;
       }
@@ -1103,13 +1132,13 @@
         gap: 9px;
       }
 
-      .account-icon {
-        font-size: 1.15rem;
-      }
-
       .btn-connect {
         padding: 10px 12px;
         font-size: 0.75rem;
+      }
+
+      .account-icon {
+        font-size: 1.15rem;
       }
 
       .hamburger {
@@ -1120,13 +1149,27 @@
         width: 22px;
       }
 
-      .subscribe-form input {
-        padding-inline: 10px;
-      }
-
       .subscribe-form button {
         flex-basis: 42px;
         width: 42px;
+      }
+    }
+
+    @media (hover: none) {
+      .p-item .visit {
+        top: auto;
+        left: auto;
+        right: 8px;
+        bottom: 8px;
+        padding: 7px 12px;
+        font-size: 0.7rem;
+        opacity: 1;
+        transform: none;
+      }
+
+      .p-item:hover .visit,
+      .p-item:focus-visible .visit {
+        transform: none;
       }
     }
 
@@ -1144,6 +1187,12 @@
         transform: none;
         transition: none;
       }
+
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+      }
     }
   </style>
 </head>
@@ -1151,12 +1200,12 @@
 <body>
   <!-- HEADER -->
   <header>
-    <a href="#home" class="logo" aria-label="Trensio home">
+    <a href="index.html" class="logo" aria-label="Trensio home">
       <img src="trensio.png" alt="Trensio" />
     </a>
 
     <nav class="desktop" aria-label="Main navigation">
-      <a href="#home">Home</a>
+      <a href="#home" aria-current="page">Home</a>
       <a href="updates.html">Updates</a>
 
       <div class="dropdown">
@@ -1166,7 +1215,7 @@
         </a>
 
         <div class="dropdown-menu">
-          <a href="#rise">Rise Together</a>
+          <a href="connect.html">Rise Together</a>
           <a href="#other">Other Areas</a>
           <a href="admin-login.html">Administrator</a>
         </div>
@@ -1185,9 +1234,9 @@
         <i class="fa-regular fa-circle-user" aria-hidden="true"></i>
       </a>
 
-     <a href="connect.html"> <button class="btn-connect" type="button">
+      <a href="connect.html" class="btn-connect">
         <span>Connect</span>
-      </button></a>
+      </a>
 
       <button
         class="hamburger"
@@ -1238,7 +1287,7 @@
       </a>
 
       <div class="sub-links" id="mainSubLinks">
-        <a href="#rise">Rise Together</a>
+        <a href="connect.html">Rise Together</a>
         <a href="#other">Other Areas</a>
         <a href="admin-login.html">Administrator</a>
       </div>
@@ -1247,9 +1296,9 @@
       <a href="#about">About</a>
     </nav>
 
-    <button class="btn-connect" type="button">
+    <a href="connect.html" class="btn-connect">
       <span>Connect</span>
-    </button>
+    </a>
   </aside>
 
   <main>
@@ -1268,7 +1317,7 @@
         </p>
 
         <div class="hero-buttons">
-          <a href="portfolio.html" class="btn btn-explore">
+          <a href="#portfolio" class="btn btn-explore">
             <span>Explore</span>
           </a>
 
@@ -1297,8 +1346,8 @@
             Trensio is a growth-focused organization dedicated to
             empowering young people and communities through practical
             education, digital skills and creative development. We
-            believe that when one person rises, they create a path for
-            others to rise too.
+            believe that when one person rises, they create a path
+            for others to rise too.
           </p>
 
           <div class="about-cards">
@@ -1310,8 +1359,8 @@
 
               <p>
                 To equip individuals with relevant skills, knowledge
-                and confidence needed to grow, create and succeed in a
-                changing world.
+                and confidence needed to grow, create and succeed
+                in a changing world.
               </p>
             </div>
 
@@ -1322,8 +1371,9 @@
               </h4>
 
               <p>
-                A generation of skilled, confident and empowered people
-                who use their abilities to uplift their communities.
+                A generation of skilled, confident and empowered
+                people who use their abilities to uplift their
+                communities.
               </p>
             </div>
 
@@ -1339,8 +1389,7 @@
               <p>
                 We provide courses and hands-on trainings in graphic
                 designing, web designing, web development, artificial
-                intelligence, MS Office and other practical random
-                skills.
+                intelligence, MS Office and other practical random skills.
               </p>
             </div>
           </div>
@@ -1350,7 +1399,7 @@
       </div>
     </section>
 
-    <!-- PORTFOLIO -->
+    <!-- PORTFOLIO: ORIGINAL IMAGE ARRANGEMENT -->
     <section id="portfolio" class="portfolio-section">
       <div class="portfolio-grid">
         <div class="reveal">
@@ -1362,86 +1411,127 @@
           </h2>
 
           <p class="section-text">
-            Explore a selection of our creative projects, designs and
-            digital solutions. Each project reflects our commitment to
-            quality, creativity and real impact.
+            Explore a selection of our creative projects, designs
+            and digital solutions. Each project reflects our
+            commitment to quality, creativity and real impact.
           </p>
 
           <a
             href="portfolio.html"
-            class="btn btn-explore"
-            style="margin-top: 28px"
+            class="btn btn-explore view-projects"
           >
             <span>View All Projects</span>
           </a>
         </div>
 
         <div class="portfolio-images reveal">
-         <a href="portfolio.html"> <div class="p-item p1">
-            <img src="portfolio1.jpg" alt="Project 1" loading="lazy" />
-            <button class="visit" type="button">
-              Visit
-              <i
-                class="fa-solid fa-arrow-up-right-from-square"
-                aria-hidden="true"
-              ></i>
-            </button>
-          </div></a>
+          <!-- Large image on the left -->
+          <a
+            href="portfolio.html"
+            class="p-item p1"
+            aria-label="Explore portfolio project 1"
+          >
+            <img
+              src="portfolio1.jpg"
+              alt=""
+              loading="lazy"
+            />
 
-          <a href="portfolio.html"><div class="p-item p2">
-            <img src="portfolio2.jpg" alt="Project 2" loading="lazy" />
-            <button class="visit" type="button">
+            <span class="visit" aria-hidden="true">
               Visit
-              <i
-                class="fa-solid fa-arrow-up-right-from-square"
-                aria-hidden="true"
-              ></i>
-            </button>
-          </div></a>
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </span>
+          </a>
 
-          <a href="portfolio.html"><div class="p-item p3">
-            <img src="portfolio3.jpg" alt="Project 3" loading="lazy" />
-            <button class="visit" type="button">
-              Visit
-              <i
-                class="fa-solid fa-arrow-up-right-from-square"
-                aria-hidden="true"
-              ></i>
-            </button>
-          </div> </a>
+          <!-- Top right -->
+          <a
+            href="portfolio.html"
+            class="p-item p2"
+            aria-label="Explore portfolio project 2"
+          >
+            <img
+              src="portfolio2.jpg"
+              alt=""
+              loading="lazy"
+            />
 
-         <a href="portfolio.html"> <div class="p-item p4">
-            <img src="portfolio4.jpg" alt="Project 4" loading="lazy" />
-            <button class="visit" type="button">
+            <span class="visit" aria-hidden="true">
               Visit
-              <i
-                class="fa-solid fa-arrow-up-right-from-square"
-                aria-hidden="true"
-              ></i>
-            </button>
-          </div> </a>
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </span>
+          </a>
 
-        <a href="portfolio.html">    <div class="p-item p5">
-            <img src="portfolio5.jpg" alt="Project 5" loading="lazy" />
-            <button class="visit" type="button">
-              Visit
-              <i
-                class="fa-solid fa-arrow-up-right-from-square"
-                aria-hidden="true"
-              ></i>
-            </button>
-          </div> </a>
+          <!-- Below the top-right image -->
+          <a
+            href="portfolio.html"
+            class="p-item p3"
+            aria-label="Explore portfolio project 3"
+          >
+            <img
+              src="portfolio3.jpg"
+              alt=""
+              loading="lazy"
+            />
 
-       <a href="portfolio.html">   <div class="p-item p6">
-            <img src="portfolio6.jpg" alt="Project 6" loading="lazy" />
-            <button class="visit" type="button">
+            <span class="visit" aria-hidden="true">
               Visit
-              <i
-                class="fa-solid fa-arrow-up-right-from-square"
-                aria-hidden="true"
-              ></i>
-            </button>
-          </div> </a>
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </span>
+          </a>
+
+          <!-- Third row, left -->
+          <a
+            href="portfolio.html"
+            class="p-item p4"
+            aria-label="Explore portfolio project 4"
+          >
+            <img
+              src="portfolio4.jpg"
+              alt=""
+              loading="lazy"
+            />
+
+            <span class="visit" aria-hidden="true">
+              Visit
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </span>
+          </a>
+
+          <!-- Third row, right -->
+          <a
+            href="portfolio.html"
+            class="p-item p5"
+            aria-label="Explore portfolio project 5"
+          >
+            <img
+              src="portfolio5.jpg"
+              alt=""
+              loading="lazy"
+            />
+
+            <span class="visit" aria-hidden="true">
+              Visit
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </span>
+          </a>
+
+          <!-- Full-width bottom image -->
+          <a
+            href="portfolio.html"
+            class="p-item p6"
+            aria-label="Explore portfolio project 6"
+          >
+            <img
+              src="portfolio6.jpg"
+              alt=""
+              loading="lazy"
+            />
+
+            <span class="visit" aria-hidden="true">
+              Visit
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </span>
+          </a>
         </div>
       </div>
     </section>
@@ -1459,22 +1549,23 @@
         <h2 class="section-title">Latest Announcements</h2>
 
         <p class="section-text">
-          Stay informed about new courses, trainings, events and
-          opportunities from Trensio.
+          Stay informed about new courses, trainings, events
+          and opportunities from Trensio.
         </p>
       </div>
 
       <div class="updates-grid">
         <div class="update-card reveal">
           <div class="date">NEW COURSE</div>
+
           <h3>Web Development Training</h3>
 
           <p>
-            Learn how to build modern, responsive websites from scratch
-            using HTML, CSS and JavaScript.
+            Learn how to build modern, responsive websites from
+            scratch using HTML, CSS and JavaScript.
           </p>
 
-          <a href="updates.html">
+          <a href="updates.html#web-development">
             Read More
             <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
           </a>
@@ -1482,14 +1573,15 @@
 
         <div class="update-card reveal">
           <div class="date">ANNOUNCEMENT</div>
+
           <h3>Graphic Design Workshop</h3>
 
           <p>
-            Join our upcoming practical workshop on branding, posters,
-            social media designs and creative visuals.
+            Join our upcoming practical workshop on branding,
+            posters, social media designs and creative visuals.
           </p>
 
-          <a href="updates.html">
+          <a href="updates.html#graphic-design">
             Read More
             <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
           </a>
@@ -1497,18 +1589,25 @@
 
         <div class="update-card reveal">
           <div class="date">OPPORTUNITY</div>
+
           <h3>AI &amp; Digital Skills Program</h3>
 
           <p>
-            Discover how artificial intelligence and digital tools can
-            boost creativity, productivity and career growth.
+            Discover how artificial intelligence and digital tools
+            can boost creativity, productivity and career growth.
           </p>
 
-          <a href="updates.html">
+          <a href="updates.html#ai-digital-skills">
             Read More
             <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
           </a>
         </div>
+      </div>
+
+      <div class="updates-more">
+        <a href="updates.html" class="btn btn-explore">
+          <span>View All Updates</span>
+        </a>
       </div>
     </section>
   </main>
@@ -1530,22 +1629,33 @@
         </p>
 
         <div class="footer-newsletter">
-          <form class="subscribe-form" id="subscribeForm">
-            <label class="subscribe-label" for="subscribe-email">
-              Email address
+          <!-- Replace action with your deployed Apps Script /exec URL. -->
+          <form
+            class="subscribe-form"
+            id="subscribeForm"
+            action="https://script.google.com/macros/s/AKfycbzp1jbC_XWtMtmjwIUDBqJBIxG0ZJARWyYSYBtBzWrr1-VCVfBb0iRfS7-AXo-KxilrsA/exec"
+            method="post"
+            target="_blank"
+            aria-describedby="subscriptionNotice subscribeMessage"
+          >
+            <label class="sr-only" for="subscribeEmail">
+              Email address for twice-weekly updates
             </label>
 
             <input
-              id="subscribe-email"
-              name="email"
               type="email"
+              id="subscribeEmail"
+              name="email"
               placeholder="Enter your email"
               autocomplete="email"
-              aria-describedby="subscribeMessage"
+              maxlength="254"
               required
             />
 
-            <button type="submit" aria-label="Subscribe">
+            <button
+              type="submit"
+              aria-label="Subscribe to Trensio reminders"
+            >
               <svg
                 viewBox="0 0 24 24"
                 fill="none"
@@ -1560,6 +1670,25 @@
               </svg>
             </button>
           </form>
+
+          <label class="subscribe-consent">
+            <input
+              type="checkbox"
+              name="consent"
+              value="yes"
+              form="subscribeForm"
+              required
+            />
+
+            <span>
+              I agree to receive Trensio reminders twice a week.
+              I can unsubscribe by replying to an email.
+            </span>
+          </label>
+
+          <p class="subscribe-help" id="subscriptionNotice">
+            Subscription confirmation opens in a new tab.
+          </p>
 
           <p
             class="subscribe-message"
@@ -1577,7 +1706,8 @@
           <li><a href="#home">Home</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="portfolio.html">Portfolio</a></li>
-          <li><a href="#updates">Updates</a></li>
+          <li><a href="updates.html">Updates</a></li>
+          <li><a href="connect.html">Connect</a></li>
         </ul>
       </div>
 
@@ -1588,9 +1718,18 @@
           <li>
             <a href="admin-login.html">Administrator</a>
           </li>
-          <li><a href="#rise">Rise Together</a></li>
-          <li><a href="#other">Other Areas</a></li>
-          <li><a href="#about">Courses &amp; Trainings</a></li>
+
+          <li>
+            <a href="connect.html">Rise Together</a>
+          </li>
+
+          <li>
+            <a href="portfolio.html">Other Areas</a>
+          </li>
+
+          <li>
+            <a href="updates.html">Courses &amp; Trainings</a>
+          </li>
         </ul>
       </div>
 
@@ -1637,7 +1776,8 @@
   </footer>
 
   <script>
-    // Marquee words
+    /* ---------- MARQUEE WORDS ---------- */
+
     const words = [
       "Graphic Designing",
       "Web Designing",
@@ -1670,7 +1810,8 @@
       });
     }
 
-    // Partner logos
+    /* ---------- PARTNER LOGOS ---------- */
+
     const partnersTrack = document.getElementById("partnersTrack");
 
     for (let copy = 0; copy < 2; copy++) {
@@ -1689,7 +1830,8 @@
       }
     }
 
-    // Mobile sidebar
+    /* ---------- MOBILE SIDEBAR ---------- */
+
     const sidebar = document.getElementById("mobileSidebar");
     const overlay = document.getElementById("overlay");
     const hamburger = document.getElementById("hamburger");
@@ -1705,6 +1847,7 @@
       sidebar.inert = false;
       sidebar.setAttribute("aria-hidden", "false");
       sidebar.classList.add("open");
+
       overlay.classList.add("show");
       hamburger.setAttribute("aria-expanded", "true");
 
@@ -1713,9 +1856,7 @@
     }
 
     function closeSidebar() {
-      const wasOpen = sidebar.classList.contains("open");
-
-      if (!wasOpen) return;
+      if (!sidebar.classList.contains("open")) return;
 
       hamburger.focus();
 
@@ -1733,7 +1874,7 @@
     closeButton.addEventListener("click", closeSidebar);
     overlay.addEventListener("click", closeSidebar);
 
-    document.querySelectorAll(".mobile-sidebar nav a").forEach((link) => {
+    sidebar.querySelectorAll("a").forEach((link) => {
       if (link.id !== "mainToggle") {
         link.addEventListener("click", closeSidebar);
       }
@@ -1743,6 +1884,7 @@
       event.preventDefault();
 
       const isOpen = mainSubLinks.classList.toggle("open");
+
       mainToggle.setAttribute("aria-expanded", String(isOpen));
     });
 
@@ -1754,26 +1896,24 @@
         return;
       }
 
-      if (event.key === "Tab") {
-        const focusableItems = Array.from(
-          sidebar.querySelectorAll(
-            'a[href], button:not([disabled]), input:not([disabled])'
-          )
-        ).filter((element) => element.getClientRects().length > 0);
+      if (event.key !== "Tab") return;
 
-        const firstItem = focusableItems[0];
-        const lastItem = focusableItems[focusableItems.length - 1];
+      const focusableItems = Array.from(
+        sidebar.querySelectorAll("a[href], button:not([disabled])")
+      ).filter((element) => element.getClientRects().length > 0);
 
-        if (event.shiftKey && document.activeElement === firstItem) {
-          event.preventDefault();
-          lastItem.focus();
-        } else if (
-          !event.shiftKey &&
-          document.activeElement === lastItem
-        ) {
-          event.preventDefault();
-          firstItem.focus();
-        }
+      const firstItem = focusableItems[0];
+      const lastItem = focusableItems[focusableItems.length - 1];
+
+      if (event.shiftKey && document.activeElement === firstItem) {
+        event.preventDefault();
+        lastItem.focus();
+      } else if (
+        !event.shiftKey &&
+        document.activeElement === lastItem
+      ) {
+        event.preventDefault();
+        firstItem.focus();
       }
     });
 
@@ -1783,7 +1923,8 @@
       }
     });
 
-    // Scroll reveal
+    /* ---------- SCROLL REVEAL ---------- */
+
     if ("IntersectionObserver" in window) {
       const observer = new IntersectionObserver(
         (entries, currentObserver) => {
@@ -1804,23 +1945,36 @@
       });
     }
 
-    // Subscription demo — connect a real backend before launch
+    /* ---------- SUBSCRIPTION CONFIGURATION CHECK ---------- */
+
+    /*
+      The form submits directly to Apps Script once its action
+      contains your real deployed /exec URL.
+
+      This check only prevents submission to the placeholder.
+    */
+
     const subscribeForm = document.getElementById("subscribeForm");
     const subscribeMessage = document.getElementById("subscribeMessage");
-    const subscribeEmail = document.getElementById("subscribe-email");
 
     subscribeForm.addEventListener("submit", (event) => {
-      event.preventDefault();
+      const endpoint = subscribeForm.getAttribute("action");
 
-      subscribeEmail.value = subscribeEmail.value.trim();
+      if (
+        !endpoint ||
+        endpoint.includes("PASTE_YOUR_APPS_SCRIPT")
+      ) {
+        event.preventDefault();
 
-      if (!subscribeForm.reportValidity()) return;
-
-      subscribeMessage.textContent =
-        "Subscriptions are not available yet. Your email has not been saved.";
+        subscribeMessage.textContent =
+          "Subscriptions are not available yet. " +
+          "Your email has not been sent or saved.";
+      } else {
+        subscribeMessage.textContent = "";
+      }
     });
 
-    subscribeEmail.addEventListener("input", () => {
+    subscribeForm.addEventListener("input", () => {
       subscribeMessage.textContent = "";
     });
   </script>
